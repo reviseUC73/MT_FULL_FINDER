@@ -237,3 +237,6 @@ app.delete("/delete/:AccountID", (req, res) => {
     return res.status(500).send();
   }
 });
+
+// Listen server
+app.listen(3001, () => console.log("Server is running on port 3001"));

@@ -158,59 +158,82 @@ app.get("/read/find_company/:CompanyName", (req, res) => {
   }
 });
 
-
 // Update data in the database
 app.post("/edit/:AccountID", async (req, res) => {
-    const account_id = req.params.AccountID;
-    const {
-      CompanyName,
-      CompanyAddress1,
-      CompanyAddress2,
-      ContactPerson,
-      Mobile,
-      Email,
-      TaxID,
-      BillingCharge,
-      AccountStatus,
-      DateModify,
-      ModifiedBy,
-      DateCreated,
-      CreatedBy,
-    } = req.body;
-  
-    try {
-      db.query(
-        "UPDATE Accounts SET  CompanyName = ?, CompanyAddress1 = ?, CompanyAddress2 = ?, ContactPerson = ?, Mobile = ?, Email = ?, TaxID = ?, BillingCharge = ?, AccountStatus = ?, DateModify = ?, ModifiedBy = ?, DateCreated = ?, CreatedBy = ? WHERE AccountID = ?",
-        [
-          CompanyName,
-          CompanyAddress1,
-          CompanyAddress2,
-          ContactPerson,
-          Mobile,
-          Email,
-          TaxID,
-          BillingCharge,
-          AccountStatus,
-          DateModify,
-          ModifiedBy,
-          DateCreated,
-          CreatedBy,
-          account_id
-        ],
-        (err, result) => {
-          if (err) {
-            console.log("Error updating database", err);
-            return res.status(400).send();
-          }
-          return res.status(200).json({
-            message: "Updating database is successful",
-            affectedRows: result.affectedRows,
-          });
+  const account_id = req.params.AccountID;
+  const {
+    CompanyName,
+    CompanyAddress1,
+    CompanyAddress2,
+    ContactPerson,
+    Mobile,
+    Email,
+    TaxID,
+    BillingCharge,
+    AccountStatus,
+    DateModify,
+    ModifiedBy,
+    DateCreated,
+    CreatedBy,
+  } = req.body;
+
+  try {
+    db.query(
+      "UPDATE Accounts SET  CompanyName = ?, CompanyAddress1 = ?, CompanyAddress2 = ?, ContactPerson = ?, Mobile = ?, Email = ?, TaxID = ?, BillingCharge = ?, AccountStatus = ?, DateModify = ?, ModifiedBy = ?, DateCreated = ?, CreatedBy = ? WHERE AccountID = ?",
+      [
+        CompanyName,
+        CompanyAddress1,
+        CompanyAddress2,
+        ContactPerson,
+        Mobile,
+        Email,
+        TaxID,
+        BillingCharge,
+        AccountStatus,
+        DateModify,
+        ModifiedBy,
+        DateCreated,
+        CreatedBy,
+        account_id,
+      ],
+      (err, result) => {
+        if (err) {
+          console.log("Error updating database", err);
+          return res.status(400).send();
         }
-      );
-    } catch (err) {
-      console.log("Error updating database", err);
-      return res.status(500).send();
-    }
-  });
-  
+        return res.status(200).json({
+          message: "Updating database is successful",
+          affectedRows: result.affectedRows,
+        });
+      }
+    );
+  } catch (err) {
+    console.log("Error updating database", err);
+    return res.status(500).send();
+  }
+});
+
+// Delete data of user
+app.delete("/delete/:AccountID", (req, res) => {
+  const accountID = req.params.AccountID;
+
+  try {
+    db.query(
+      "DELETE FROM Accounts WHERE AccountID = ?",
+      [accountID],
+      (err, result) => {
+        if (err) {
+          console.log("Error deleting from database", err);
+          return res.status(400).send();
+        }
+        return res.status(200).json({
+          message: "Deleting from database is successful",
+          affectedRows: result.affectedRows,
+        });
+      }
+    );
+  } catch (err) {
+    console.log("Error deleting from database", err);
+    return res.status(500).send();
+  }
+});

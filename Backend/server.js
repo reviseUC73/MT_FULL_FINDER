@@ -9,12 +9,12 @@ app.use(express.json()); // change json to javascript
 
 // My sql connection
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT,
-  });
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT,
+});
 // Connecting to database
 db.connect((err) => {
   if (err) {
@@ -24,66 +24,136 @@ db.connect((err) => {
   console.log("Connecting successfull");
 });
 
-
 // Listen server
 app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Server is running on port ${process.env.SERVER_PORT}`);
-  });
-
-
+  console.log(`Server is running on port ${process.env.SERVER_PORT}`);
+});
 
 // Create Routes
 app.post("/create", async (req, res) => {
-    const {
-      AccountID,
-      CustomerCode,
-      CompanyName,
-      CompanyAddress1,
-      CompanyAddress2,
-      ContactPerson,
-      Mobile,
-      Email,
-      TaxID,
-      BillingCharge,
-      AccountStatus,
-      DateModify,
-      ModifiedBy,
-      DateCreated,
-      CreatedBy,
-    } = req.body;
-    try {
-      db.query(
-        "INSERT INTO Accounts (AccountID, CustomerCode, CompanyName, CompanyAddress1, CompanyAddress2, ContactPerson, Mobile, Email, TaxID, BillingCharge, AccountStatus, DateModify, ModifiedBy, DateCreated, CreatedBy) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )",
-        [
-          AccountID,
-          CustomerCode,
-          CompanyName,
-          CompanyAddress1,
-          CompanyAddress2,
-          ContactPerson,
-          Mobile,
-          Email,
-          TaxID,
-          BillingCharge,
-          AccountStatus,
-          DateModify,
-          ModifiedBy,
-          DateCreated,
-          CreatedBy,
-        ],
-        (err, result, fields) => {
-          if (err) {
-            console.log("Error inserting into database", err);
-            return res.status(400).send();
-          }
-          return res
-            .status(201)
-            .json({ message: "Inserting into database is successful" });
+  const {
+    AccountID,
+    CustomerCode,
+    CompanyName,
+    CompanyAddress1,
+    CompanyAddress2,
+    ContactPerson,
+    Mobile,
+    Email,
+    TaxID,
+    BillingCharge,
+    AccountStatus,
+    DateModify,
+    ModifiedBy,
+    DateCreated,
+    CreatedBy,
+  } = req.body;
+  try {
+    db.query(
+      "INSERT INTO Accounts (AccountID, CustomerCode, CompanyName, CompanyAddress1, CompanyAddress2, ContactPerson, Mobile, Email, TaxID, BillingCharge, AccountStatus, DateModify, ModifiedBy, DateCreated, CreatedBy) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )",
+      [
+        AccountID,
+        CustomerCode,
+        CompanyName,
+        CompanyAddress1,
+        CompanyAddress2,
+        ContactPerson,
+        Mobile,
+        Email,
+        TaxID,
+        BillingCharge,
+        AccountStatus,
+        DateModify,
+        ModifiedBy,
+        DateCreated,
+        CreatedBy,
+      ],
+      (err, result, fields) => {
+        if (err) {
+          console.log("Error inserting into database", err);
+          return res.status(400).send();
         }
-      );
-    } catch (err) {
-      console.log("Error inserting into database", err);
-      return res.status(500).send();
+        return res
+          .status(201)
+          .json({ message: "Inserting into database is successful" });
+      }
+    );
+  } catch (err) {
+    console.log("Error inserting into database", err);
+    return res.status(500).send();
+  }
+});
+
+// Read data from database
+app.get("/read", (res) => {
+  const sql_command = "SELECT * FROM Accounts;";
+  try {
+    {
+      db.query(sql_command, (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        return res.status(200).json(result);
+      });
     }
-  });
-  
+  } catch {
+    return res.status(500).send();
+  }
+});
+
+// Search data from AccountID
+app.get("/read/find_id/:AccountID", (req, res) => {
+  find_id = req.params.AccountID;
+  sql_command = "SELECT * FROM Accounts  WHERE AccountID = ?;";
+  try {
+    db.query(sql_command, [find_id], (err, result, fields) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send();
+      }
+      return res.status(200).json(result);
+      //  console.log(result[0].TaxID); => x.TaxID or taxID number
+      // console.log(result[0] => if don't found item that you search you will get []
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send();
+  }
+});
+
+// Search data from CustomerCode
+app.get("/read/find_code/:CustomerCode", (req, res) => {
+  find_code = req.params.CustomerCode;
+  sql_command = "SELECT * FROM Accounts  WHERE CustomerCode = ?;";
+  try {
+    db.query(sql_command, [find_id], (err, result, fields) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send();
+      }
+      return res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send();
+  }
+});
+
+// Search data from CompanyName
+app.get("/read/find_company/:CompanyName", (req, res) => {
+  const find_company = req.params.CompanyName;
+  const sql_command = "SELECT * FROM Accounts  WHERE CompanyName = ?;";
+  try {
+    db.query(sql_command, [find_company], (err, result, fields) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send();
+      }
+      return res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send();
+  }
+});

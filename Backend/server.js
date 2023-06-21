@@ -213,7 +213,7 @@ app.post("/edit/:AccountID", async (req, res) => {
   }
 });
 
-// Delete data of user
+// Delete data 
 app.delete("/delete/:AccountID", (req, res) => {
   const accountID = req.params.AccountID;
 

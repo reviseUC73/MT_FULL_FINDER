@@ -24,11 +24,6 @@ db.connect((err) => {
   console.log("Connecting successfull");
 });
 
-// Listen server
-app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Server is running on port ${process.env.SERVER_PORT}`);
-});
-
 // Create Routes
 app.post("/create", async (req, res) => {
   const {
@@ -84,23 +79,24 @@ app.post("/create", async (req, res) => {
   }
 });
 
+
 // Read data from database
-app.get("/read", (res) => {
+app.get("/read", (req, res) => {
   const sql_command = "SELECT * FROM Accounts;";
   try {
-    {
-      db.query(sql_command, (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        return res.status(200).json(result);
-      });
-    }
-  } catch {
+    db.query(sql_command, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send();
+      }
+      return res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
     return res.status(500).send();
   }
 });
+
 
 // Search data from AccountID
 app.get("/read/find_id/:AccountID", (req, res) => {
@@ -239,4 +235,6 @@ app.delete("/delete/:AccountID", (req, res) => {
 });
 
 // Listen server
-app.listen(3001, () => console.log("Server is running on port 3001"));
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`Server is running on port ${process.env.SERVER_PORT}`);
+});

@@ -1,0 +1,131 @@
+/* nav bar vertival */
+.container {
+  display: flex;
+}
+.vertical-navbar {
+  flex-basis: 20%;
+  background-color: rgb(123, 154, 247);
+  padding: 1rem;
+  height: 100vh;
+  overflow-y: auto;
+}
+.vertical-navbar a {
+  display: block;
+  color: #fafafae4;
+  padding: 0.5rem 1rem;
+  /* text-decoration: none; */
+}
+.vertical-navbar a.active {
+  background-color: rgb(114, 135, 240);
+  color: white;
+}
+
+/* user profile in nav */
+.name-profile {
+  color: white;
+  font-size: 1.2rem;
+}
+.name-com {
+  color: white;
+  font-size: 1.4rem;
+}
+#mail-profile {
+  color: #ffffffbf;
+  font-size: 75%;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+.user-profile img {
+  width: 10rem;
+  height: 8rem;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+/* list table custumer */
+.content {
+  flex-basis: 80%;
+  padding: 20px;
+}
+
+.order-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* .order-list th,
+.order-list td {
+  border-spacing: 200px;
+  padding: 8px;
+  background-color: white;
+} */
+
+.order-list th {
+  border-spacing: 200px;
+  padding: 8px;
+  background-color: rgb(231, 229, 229);
+}
+.order-list td {
+  border-spacing: 200px;
+  padding: 8px;
+  background-color: rgb(255, 255, 255);
+}
+.yo {
+  margin-bottom: 25px;
+}
+.name_page {
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.order-list tr:not(:last-child) {
+  margin-bottom: 20px;
+}
+/* .order-list th {
+  background-color: #f1f1f1;
+  background-color: white;
+}
+
+.order-list tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+  background-color: white;
+} */
+/* td::nth-child(4){
+  text-align: start;
+} */
+
+summary {
+  display: block;
+  text-align: start;
+}
+
+details summary::after {
+  margin-left: 1rem;
+  /* display: inline-block; */
+  /* transition: 0.2s; */
+  /* content: ">";  */
+}
+
+details.descri[open] summary::after {
+  content: attr(data-open);
+  /* transform: rotate(90deg); */
+}
+
+details.descri:not([open]) summary::after {
+  content: attr(data-close);
+  /* transform: rotate(90deg); */
+}
+
+
+
+li { 
+  text-align: start;
+}

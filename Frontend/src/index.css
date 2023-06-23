@@ -25,10 +25,13 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
+
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: rgb(236, 240, 249);
+  font-family: 'Kanit', sans-serif;
 }
 
 h1 {

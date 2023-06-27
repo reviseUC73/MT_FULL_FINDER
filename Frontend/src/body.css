@@ -1,54 +1,19 @@
-/* nav bar vertival */
-.container {
+#table_top {
   display: flex;
+  justify-content: space-between;
 }
-.vertical-navbar {
-  flex-basis: 20%;
-  background-color: rgb(123, 154, 247);
-  padding: 1rem;
-  height: 100vh;
-  overflow-y: auto;
-}
-.vertical-navbar a {
-  display: block;
-  color: #fafafae4;
-  padding: 0.5rem 1rem;
-  /* text-decoration: none; */
-}
-.vertical-navbar a.active {
-  background-color: rgb(114, 135, 240);
-  color: white;
+#create_bottom {
+  max-height: 2rem;
+  margin-right: 2rem;
+  margin-top: 0.25rem;
 }
 
-/* user profile in nav */
-.name-profile {
-  color: white;
-  font-size: 1.2rem;
-}
-.name-com {
-  color: white;
-  font-size: 1.4rem;
-}
-#mail-profile {
-  color: #ffffffbf;
-  font-size: 75%;
+#group_bottom_popup {
+  float: right;
 }
 
-.user-profile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  flex-direction: column;
+#close_form {
 }
-
-.user-profile img {
-  width: 10rem;
-  height: 8rem;
-  border-radius: 50%;
-  padding: 1rem;
-}
-
 /* list table custumer */
 .content {
   flex-basis: 80%;
@@ -124,8 +89,6 @@ details.descri:not([open]) summary::after {
   /* transform: rotate(90deg); */
 }
 
-
-
-li { 
+li {
   text-align: start;
 }

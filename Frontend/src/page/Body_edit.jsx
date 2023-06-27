@@ -1,7 +1,7 @@
 import React from "react";
 import "../body.css";
 import "./edit.css";
-const body_edit = () => {
+const Body_edit = () => {
   return (
     <div>
       <div class="name_page"> Table </div>
@@ -29,10 +29,10 @@ const body_edit = () => {
             <td>รายการสินค้า</td>
             <td>รายการสินค้า</td>
             <td>
-              <button class="btn btn-delete">
-                <span class="mdi mdi-delete mdi-24px"></span>
-                <span class="mdi mdi-delete-empty mdi-24px"></span>
-                <span>Delete</span>
+              <button class="btn btn-edit">
+                <span class="mdi mdi-edit mdi-24px"></span>
+                <span class="mdi mdi-edit mdi-24px"></span>
+                <span>Edit</span>
               </button>
             </td>
           </tr>
@@ -47,11 +47,11 @@ const body_edit = () => {
             <td>รายการสินค้า</td>
             <td>รายการสินค้า</td>
           </tr>
-          {/* Add more order items as needed */}
+          
         </tbody>
       </table>
     </div>
   );
 };
 
-export default body_edit;
+export default Body_edit;

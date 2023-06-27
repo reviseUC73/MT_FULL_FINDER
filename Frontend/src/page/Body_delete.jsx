@@ -1,6 +1,7 @@
 import React from "react";
-import "./body.css";
-const table = () => {
+import "../body.css";
+import "./edit_del.css";
+const Body_delete = () => {
   return (
     <div>
       <div class="name_page"> Table </div>
@@ -28,23 +29,11 @@ const table = () => {
             <td>รายการสินค้า</td>
             <td>รายการสินค้า</td>
             <td>
-              <details className="descri">
-                <summary data-open="▸ Show Less" data-close="▾ Show More" ></summary>
-                <ul>
-                  <li>CompanyAddress1 : 456 Oak Street </li>
-                  <li>CompanyAddress2 : Suite 789</li>
-                  <li>ContactPerson : Jane Smith</li>
-                  <li>Mobile : 555-123-4567</li>
-                  <li>Email : jane@example.com</li>
-                  <li>TaxID : 0987654321</li>
-                  <li>BillingCharge : 0.05</li>
-                  <li>AccountStatus : Inactive</li>
-                  <li>DateModify : 2023-06-18 00:00:00</li>
-                  <li>ModifiedBy : User1</li>
-                  <li>CreatedBy : User1</li>
-                  <li>DateCreated : 2023-06-18</li>
-                </ul>
-              </details>
+              <button class="btn btn-delete">
+                <span class="mdi mdi-delete mdi-24px"></span>
+                <span class="mdi mdi-delete-empty mdi-24px"></span>
+                <span>Delete</span>
+              </button>
             </td>
           </tr>
 
@@ -65,4 +54,4 @@ const table = () => {
   );
 };
 
-export default table;
+export default Body_delete;

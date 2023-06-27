@@ -12,8 +12,7 @@
   float: right;
 }
 
-#close_form {
-}
+
 /* list table custumer */
 .content {
   flex-basis: 80%;
@@ -24,13 +23,6 @@
   width: 100%;
   border-collapse: collapse;
 }
-
-/* .order-list th,
-.order-list td {
-  border-spacing: 200px;
-  padding: 8px;
-  background-color: white;
-} */
 
 .order-list th {
   border-spacing: 200px;

@@ -1,6 +1,7 @@
 #table_top {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 }
 #create_bottom {
   max-height: 2rem;
@@ -11,32 +12,33 @@
 #group_bottom_popup {
   float: right;
 }
-
-
 /* list table custumer */
 .content {
   flex-basis: 80%;
   padding: 20px;
+
 }
 
 .order-list {
   width: 100%;
   border-collapse: collapse;
+  /* border: 1rem; */
+  
 }
 
 .order-list th {
   border-spacing: 200px;
-  padding: 8px;
+  padding: 0.8rem;
   background-color: rgb(231, 229, 229);
 }
 .order-list td {
   border-spacing: 200px;
-  padding: 8px;
+  padding: 1.1rem;
   background-color: rgb(255, 255, 255);
 }
-.yo {
+/* .yo {
   margin-bottom: 25px;
-}
+} */
 .name_page {
   text-align: left;
   font-size: 2.5rem;
@@ -46,18 +48,7 @@
 .order-list tr:not(:last-child) {
   margin-bottom: 20px;
 }
-/* .order-list th {
-  background-color: #f1f1f1;
-  background-color: white;
-}
 
-.order-list tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-  background-color: white;
-} */
-/* td::nth-child(4){
-  text-align: start;
-} */
 
 summary {
   display: block;
@@ -83,4 +74,8 @@ details.descri:not([open]) summary::after {
 
 li {
   text-align: start;
+}
+
+#last_e{
+  display: flex;
 }

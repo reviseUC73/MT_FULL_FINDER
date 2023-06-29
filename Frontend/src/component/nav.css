@@ -11,15 +11,13 @@
     transition: all 1s ease;
     
 
-  /* position : absolute; */
-  /* margin-top: 1rem; */
   }
 
   .vertical-navbar {
     /* display: none; */
     /* transition: all 0.3s ease; */
 
-    flex-basis: 17%;
+    flex-basis: 20%;
     background-color: rgb(123, 154, 247);
     padding: 0.7rem;
     height: 100vh;
@@ -29,15 +27,11 @@
     display: block;
     color: #fafafae4;
     padding: 0.3rem 1rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin: 0.8rem;
     /* text-decoration: none; */
   }
-  /* .vertical-navbar a.active {
-    background-color: rgb(114, 135, 240);
-    color: white;
-  }
-   */
+
   .vertical-navbar-active {
     background-color: rgb(114, 135, 240);
     color: white;
@@ -85,7 +79,7 @@
 #name-com {
   color: white;
   
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   text-align:  center;
   /* margin: 1rem; */
 }

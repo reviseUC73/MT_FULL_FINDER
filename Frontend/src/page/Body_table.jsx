@@ -1,11 +1,12 @@
 import React from "react";
 import "../body.css";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { AllInformation } from "../services/AccountApi";
+import { useState, useEffect } from "react";
+
 
 const Table_data = () => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
@@ -26,6 +27,77 @@ const Table_data = () => {
     console.log("ShowPopup_ready_use_and_ready_creating_form");
   };
 
+  const [formData, setFormData] = useState({
+    AccountId: "",
+    CustomerCode: "",
+    CompanyName: "",
+    CompanyAddress1: "",
+    CompanyAddress2: "",
+    ContactPerson: "",
+    mobile: "",
+    Email: "",
+    TaxId: "",
+    BillingCharge: "",
+    AccountStatus: "",
+    DateModify: "",
+    ModifyBy: "",
+    DateCreated: "",
+    CreatedBy: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        // Handle success
+        console.log("Data submitted successfully");
+        // Reset the form
+        setFormData({
+          accountId: "",
+          customerCode: "",
+          companyName: "",
+          companyAddress1: "",
+          companyAddress2: "",
+          contactPerson: "",
+          mobile: "",
+          email: "",
+          taxId: "",
+          billingCharge: "",
+          accountStatus: "",
+          dateModified: "",
+          modifiedBy: "",
+          dateCreated: "",
+          createdBy: "",
+        });
+      } else {
+        // Handle error
+        console.error("Failed to submit data");
+      }
+    } catch (error) {
+      console.error("Failed to submit data", error);
+    }
+  };
+
+
+
+
+
+  
   const [data, setData] = useState([]);
   // function that use in use effect when user insite to this page
   useEffect(() => {
@@ -89,18 +161,16 @@ const Table_data = () => {
                     data-close="▾ Show More"
                   ></summary>
                   <ul>
-                    <li>CompanyAddress1: {row.companyAddress1}</li>
-                    <li>CompanyAddress2: {row.companyAddress2}</li>
-                    <li>ContactPerson: {row.contactPerson}</li>
-                    <li>Mobile: {row.mobile}</li>
-                    <li>Email: {row.contactEmail}</li>
-                    <li>TaxID: {row.taxId}</li>
-                    <li>BillingCharge: {row.billingCharge}</li>
-                    <li>AccountStatus: {row.accountStatus}</li>
-                    <li>DateModify: {row.dateModified}</li>
-                    <li>ModifiedBy: {row.modifiedBy}</li>
-                    <li>CreatedBy: {row.createdBy}</li>
-                    <li>DateCreated: {row.dateCreated}</li>
+                    <li>CompanyAddress1: {row.CompanyAddress1}</li>
+                    <li>CompanyAddress2: {row.CompanyAddress2}</li>
+                    <li>ContactPerson: {row.ContactPerson}</li>
+                    <li>Mobile: {row.Mobile}</li>
+                    <li>TaxID: {row.TaxID}</li>
+                    <li>BillingCharge: {row.BillingCharge}</li>
+                    <li>DateModify: {row.DateModify}</li>
+                    <li>ModifiedBy: {row.ModifiedBy}</li>
+                    <li>CreatedBy: {row.CreatedBy}</li>
+                    <li>DateCreated: {row.DateCreated}</li>
                   </ul>
                 </details>
               </td>
@@ -194,15 +264,6 @@ const Table_data = () => {
             </div>
           </div>
 
-          {/* <!-- <div class="form-row">
-      
-          {/* <!-- submit form  --> */}
-          {/* <div class="form-row submit-btn">
-            <div class="input-data">
-              <div class="inner"></div>
-              <input type="submit" value="Create" />
-            </div>
-          </div> */}
           <Stack id="group_bottom_popup" spacing={2} direction="row">
             <Button variant="text" onClick={Close_popup}>
               Close

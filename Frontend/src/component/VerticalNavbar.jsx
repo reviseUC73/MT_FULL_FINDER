@@ -58,7 +58,7 @@ const VerticalNavbar = () => {
                 id="menu-icon"
               />
             </IconButton>
-            <div id="name-com"> METRO SYSTEM </div>
+            <div id="name-com"> METRO SYSTEMS </div>
           </div>
           <img
             src="https://legacy.reactjs.org/logo-og.png"

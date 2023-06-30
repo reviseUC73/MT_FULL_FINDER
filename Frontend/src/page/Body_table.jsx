@@ -1,12 +1,14 @@
 import React from "react";
 import "../body.css";
 import Button from "@mui/material/Button";
+// import Button from '@mui/material-next/Button';
+
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { AllInformation } from "../services/AccountApi";
+import { AllInformation, CreateInformation } from "../services/AccountApi";
 import { useState, useEffect } from "react";
-
+import { GetCurrentTime } from "../services/Time";
 
 const Table_data = () => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
@@ -27,77 +29,106 @@ const Table_data = () => {
     console.log("ShowPopup_ready_use_and_ready_creating_form");
   };
 
-  const [formData, setFormData] = useState({
-    AccountId: "",
+  const [input, setInput] = useState({
+    AccountID: "",
     CustomerCode: "",
     CompanyName: "",
     CompanyAddress1: "",
     CompanyAddress2: "",
     ContactPerson: "",
-    mobile: "",
+    Mobile: "",
     Email: "",
-    TaxId: "",
+    TaxID: "",
     BillingCharge: "",
     AccountStatus: "",
-    DateModify: "",
-    ModifyBy: "",
-    DateCreated: "",
-    CreatedBy: "",
+    DateModify: GetCurrentTime(),
+    ModifiedBy: "ME",
+    DateCreated: GetCurrentTime(),
+    CreatedBy: "ME",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+  // target state that changed from user
+  const handleChange = async (e) => {
+    const { target } = e; //  target = e.target is thing that changed state
+    const { name } = target; // name = e.target.name
+    const value = e.target.value;
+    setInput({
+      ...input, // another field that you is inputed(old)
       [name]: value,
-    }));
+    });
+    console.log(input);
   };
 
-  const handleSubmit = async (e) => {
+  const OnSubmit = async (e) => {
     e.preventDefault();
+    console.log("start submit");
     try {
-      const response = await fetch("/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        // Handle success
-        console.log("Data submitted successfully");
-        // Reset the form
-        setFormData({
-          accountId: "",
-          customerCode: "",
-          companyName: "",
-          companyAddress1: "",
-          companyAddress2: "",
-          contactPerson: "",
-          mobile: "",
-          email: "",
-          taxId: "",
-          billingCharge: "",
-          accountStatus: "",
-          dateModified: "",
-          modifiedBy: "",
-          dateCreated: "",
-          createdBy: "",
+      const success = await CreateInformation(input);
+      if (success) {
+        console.log("Form submitted successfully");
+        setInput({
+          AccountID: "",
+          CustomerCode: "",
+          CompanyName: "",
+          CompanyAddress1: "",
+          CompanyAddress2: "",
+          ContactPerson: "",
+          Mobile: "",
+          Email: "",
+          TaxID: "",
+          BillingCharge: "",
+          AccountStatus: "",
+          DateModify: GetCurrentTime(),
+          ModifiedBy: "ME",
+          DateCreated: GetCurrentTime(),
+          CreatedBy: "ME",
         });
       } else {
-        // Handle error
-        console.error("Failed to submit data");
+        console.log("Failed to submit form");
       }
-    } catch (error) {
-      console.error("Failed to submit data", error);
+    } catch (err) {
+      console.log("Error submitting form", err);
     }
+
+    //   try {
+    //     const response = await fetch("/create", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(formData),
+    //     });
+    //     if (response.ok) {
+    //       // Handle success
+    //       console.log("Data submitted successfully");
+    //       // Reset the form
+    //       setFormData({
+    //         accountId: "",
+    //         customerCode: "",
+    //         companyName: "",
+    //         companyAddress1: "",
+    //         companyAddress2: "",
+    //         contactPerson: "",
+    //         mobile: "",
+    //         email: "",
+    //         taxId: "",
+    //         billingCharge: "",
+    //         accountStatus: "",
+    //         dateModified: "",
+    //         modifiedBy: "",
+    //         dateCreated: "",
+    //         createdBy: "",
+    //       });
+    //     } else {
+    //       // Handle error
+    //       console.error("Failed to submit data");
+    //     }
+    //   } catch (error) {
+    //     console.error("Failed to submit data", error);
+    // }
+    // console.log(e);
   };
 
-
-
-
-
-  
   const [data, setData] = useState([]);
   // function that use in use effect when user insite to this page
   useEffect(() => {
@@ -122,6 +153,7 @@ const Table_data = () => {
           variant="contained"
           onClick={Show_popup}
           disabled={isButtonDisabled}
+          size="large"
         >
           Creating Form
         </Button>
@@ -134,7 +166,7 @@ const Table_data = () => {
             <th>AccountID</th>
             <th>CostomerCode</th>
             <th>CompanyName</th>
-          
+
             <th>Email</th>
             <th>Billing Charge (%)</th>
             <th>Status</th>
@@ -144,7 +176,6 @@ const Table_data = () => {
 
         {/* Information each row */}
         <tbody>
-         
           {/* row account 3 <api> */}
           {data.map((row) => (
             <tr key={row.id}>
@@ -184,16 +215,26 @@ const Table_data = () => {
         <IconButton id="close_form" name="details" onClick={Close_popup}>
           <HighlightOffIcon />
         </IconButton>
-        <form action="#">
+        <form onSubmit={OnSubmit}>
           {/* <!-- row 1 --> */}
           <div class="form-row">
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="AccountID"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Account ID</label>
             </div>
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="CustomerCode"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Customer Code</label>
             </div>
@@ -202,12 +243,22 @@ const Table_data = () => {
           {/* <!-- row 2 --> */}
           <div class="form-row">
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="CompanyName"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Company Name</label>
             </div>
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="ContactPerson"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Contact Person</label>
             </div>
@@ -216,12 +267,22 @@ const Table_data = () => {
           {/* <!-- row 3  --> */}
           <div class="form-row">
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="CompanyAddress1"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Company Address 1</label>
             </div>
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="CompanyAddress2"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Company Address 2</label>
             </div>
@@ -230,12 +291,22 @@ const Table_data = () => {
           {/* <!-- row 4  --> */}
           <div class="form-row">
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="AccountStatus"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Account Status</label>
             </div>
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="Mobile"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Mobile Number</label>
             </div>
@@ -244,12 +315,22 @@ const Table_data = () => {
           {/* <!-- row 5  --> */}
           <div class="form-row">
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                name="TaxID"
+                required
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Tax ID</label>
             </div>
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                name="BillingCharge"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Billing Charge %</label>
             </div>
@@ -258,17 +339,24 @@ const Table_data = () => {
           {/* <!-- row 6  --> */}
           <div class="form-row">
             <div class="input-data">
-              <input type="text" required />
+              <input
+                type="email"
+                required
+                name="Email"
+                onChange={handleChange}
+              />
               <div class="underline"></div>
               <label for="">Email Address</label>
             </div>
           </div>
 
           <Stack id="group_bottom_popup" spacing={2} direction="row">
-            <Button variant="text" onClick={Close_popup}>
+            <Button variant="text" size="large" onClick={Close_popup}>
               Close
             </Button>
-            <Button variant="contained">Create</Button>
+            <Button size="large" type="submit" variant="contained">
+              Create
+            </Button>
           </Stack>
         </form>
       </div>

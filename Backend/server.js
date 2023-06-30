@@ -1,10 +1,14 @@
 // impoort
 const express = require("express");
 const mysql = require("mysql");
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
 require("dotenv").config(); // Load environment variables from .env file
 
-// initialize
+// Initialize
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // change json to javascript
 
 // My sql connection
@@ -66,7 +70,8 @@ app.post("/create", async (req, res) => {
       (err, result, fields) => {
         if (err) {
           console.log("Error inserting into database", err);
-          return res.status(400).send();
+          res.body = "hi";
+          return res.status(400).send({result : ' false'});
         }
         return res
           .status(201)
@@ -234,7 +239,39 @@ app.delete("/delete/:AccountID", (req, res) => {
   }
 });
 
+
+
+app.use(bodyParser.json());
+
+// Define the route for checking duplicate data
+app.post('/check-duplicate', (req, res) => {
+  // Retrieve the data from the request body
+  const { AccountID, CustomerCode} = req.body;
+console.log(AccountID,CustomerCode)
+  // Perform the duplicate data check based on your logic
+  // Assuming you're using a database like MySQL, you can use a query to check for duplicate data
+  // Adjust the query based on your database schema and table name
+  const query = `SELECT * FROM Accounts WHERE AccountID = ? OR CustomerCode = ?`;
+  // Assuming you're using a MySQL library like 'mysql2'
+  // Adjust the database connection and query execution based on the library you're using
+  db.query(query, [AccountID, CustomerCode], (err, result) => {
+    if (err) {
+      console.log('Failed to execute the duplicate data check query', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    // Check if any rows are returned from the query
+    const duplicate = result.length > 0 ;
+
+    // Return the result as JSON response
+    res.json({ duplicate });
+  });
+});
 // Listen server
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`Server is running on port ${process.env.SERVER_PORT}`);
+  console.log(`localhost:3002/read`)
 });
+
+

@@ -6,18 +6,24 @@ import Button from "@mui/material/Button";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { AllInformation, CreateInformation } from "../services/AccountApi";
+import {
+  AllInformation,
+  CheckDuplicateData,
+  CreateInformation,
+} from "../services/AccountApi";
 import { useState, useEffect } from "react";
 import { GetCurrentTime } from "../services/Time";
 
 const Table_data = () => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [isDuplicate, setDuplicate] = useState(false);
   const Close_popup = () => {
     let create_popup = document.getElementsByClassName(
       "container_form_popup"
     )[0];
     create_popup.style.display = "none";
     setButtonDisabled(!isButtonDisabled);
+    setDuplicate(false)
   };
   const Show_popup = () => {
     // setButtonDisabled(!isButtonDisabled);
@@ -56,13 +62,22 @@ const Table_data = () => {
       ...input, // another field that you is inputed(old)
       [name]: value,
     });
-    console.log(input);
+    console.log(isDuplicate);
   };
 
   const OnSubmit = async (e) => {
     e.preventDefault();
     console.log("start submit");
+    const isDuplicate = await CheckDuplicateData(input);
+
+    if (isDuplicate) {
+      // Handle duplicate case
+      console.log("Duplicate data found!");
+      setDuplicate(true);
+      return;
+    }
     try {
+      setDuplicate(false)
       const success = await CreateInformation(input);
       if (success) {
         console.log("Form submitted successfully");
@@ -224,6 +239,7 @@ const Table_data = () => {
                 required
                 name="AccountID"
                 onChange={handleChange}
+                id={isDuplicate ? "dupicate" : ""}
               />
               <div class="underline"></div>
               <label for="">Account ID</label>
@@ -234,6 +250,7 @@ const Table_data = () => {
                 required
                 name="CustomerCode"
                 onChange={handleChange}
+                id={isDuplicate ? "dupicate" : ""}
               />
               <div class="underline"></div>
               <label for="">Customer Code</label>

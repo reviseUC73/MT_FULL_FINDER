@@ -1,20 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700/&display=swap");
-/* *{
-  margin: 0;
-  padding: 0;
-  outline: none;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-} */
-/* body{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 10px;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
-} */
 
 .container_form_popup {
   display: none;
@@ -31,17 +15,15 @@
   margin-right: auto;
   backdrop-filter: blur(2px);
   padding: 1.5rem;
-
 }
 
 .container_form {
-    /* display: none; */
+  /* display: none; */
   width: 800px;
   padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 0.7rem;
   background-color: rgba(107, 172, 242, 0.344);
-
 }
 
 /* main topic creaing form */
@@ -78,6 +60,7 @@ form .form-row .input-data {
   margin: 0 2rem;
   position: relative;
 }
+
 form .form-row .textarea {
   height: 2rem;
 }
@@ -94,6 +77,21 @@ form .form-row .textarea {
   border-bottom: 0.2rem solid rgba(0, 0, 0, 0.12);
   padding-left: 1rem;
 }
+
+.input-data #dupicate {
+  border-radius: 0.5rem;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border: cap;
+  font-size: 1rem;
+  border-bottom: 0.2rem solid rgba(0, 0, 0, 0.12);
+  padding-left: 1rem;
+  background-color: ivory;
+  outline: 2px solid red;
+}
+
 .input-data input:focus ~ label,
 .textarea textarea:focus ~ label,
 .input-data input:valid ~ label,
@@ -102,6 +100,14 @@ form .form-row .textarea {
   font-size: 0.7rem;
   color: #3498db;
 }
+
+/* .input-data input~#dupicate {
+  
+  padding-left: 1rem;
+  background-color: ivory;
+  outline: 2px solid red;
+} */
+
 .textarea textarea {
   resize: none;
   padding-top: 10px;
@@ -145,7 +151,7 @@ form .form-row .textarea {
   transition: transform 0.3s ease;
 }
 
-/* submit buttom */
+/* submit buttom
 .input-data input:focus ~ .underline:before,
 .input-data input:valid ~ .underline:before,
 .textarea textarea:focus ~ .underline:before,
@@ -159,6 +165,8 @@ form .form-row .textarea {
   width: 25% !important;
   position: absolute;
 }
+
+
 .submit-btn .input-data .inner {
   height: 100%;
   width: 300%;
@@ -205,4 +213,4 @@ form .form-row .textarea {
   .submit-btn .input-data {
     width: 40% !important;
   }
-}
+} */

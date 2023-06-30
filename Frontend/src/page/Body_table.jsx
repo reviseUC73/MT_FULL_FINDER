@@ -1,8 +1,6 @@
 import React from "react";
 import "../body.css";
 import Button from "@mui/material/Button";
-// import Button from '@mui/material-next/Button';
-
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
@@ -13,6 +11,8 @@ import {
 } from "../services/AccountApi";
 import { useState, useEffect } from "react";
 import { GetCurrentTime } from "../services/Time";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Table_data = () => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
@@ -23,7 +23,7 @@ const Table_data = () => {
     )[0];
     create_popup.style.display = "none";
     setButtonDisabled(!isButtonDisabled);
-    setDuplicate(false)
+    setDuplicate(false);
   };
   const Show_popup = () => {
     // setButtonDisabled(!isButtonDisabled);
@@ -73,11 +73,17 @@ const Table_data = () => {
     if (isDuplicate) {
       // Handle duplicate case
       console.log("Duplicate data found!");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Duplicate data found!",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
       setDuplicate(true);
       return;
     }
     try {
-      setDuplicate(false)
+      setDuplicate(false);
       const success = await CreateInformation(input);
       if (success) {
         console.log("Form submitted successfully");
@@ -98,10 +104,29 @@ const Table_data = () => {
           DateCreated: GetCurrentTime(),
           CreatedBy: "ME",
         });
+        Swal.fire({
+          icon: "success",
+          title: "The data has been created.",
+          showCancelButton: false,
+          showCloseButton: false,
+          timer: 1500,
+        }).then(() => window.location.reload());
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
         console.log("Failed to submit form");
       }
     } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
       console.log("Error submitting form", err);
     }
 

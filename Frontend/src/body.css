@@ -16,14 +16,12 @@
 .content {
   flex-basis: 80%;
   padding: 20px;
-
 }
 
 .order-list {
   width: 100%;
   border-collapse: collapse;
   /* border: 1rem; */
-  
 }
 
 .order-list th {
@@ -49,7 +47,6 @@
   margin-bottom: 20px;
 }
 
-
 summary {
   display: block;
   text-align: start;
@@ -57,9 +54,6 @@ summary {
 
 details summary::after {
   margin-left: 1rem;
-  /* display: inline-block; */
-  /* transition: 0.2s; */
-  /* content: ">";  */
 }
 
 details.descri[open] summary::after {
@@ -76,6 +70,6 @@ li {
   text-align: start;
 }
 
-#last_e{
+#last_e {
   display: flex;
 }

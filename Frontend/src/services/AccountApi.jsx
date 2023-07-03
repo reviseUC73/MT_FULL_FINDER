@@ -24,14 +24,13 @@ export const CheckDuplicateData = async (data) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response)
-    return response.data.duplicate; 
+    console.log(response);
+    return response.data.duplicate;
   } catch (error) {
     console.log("Failed to check duplicate data", error);
     return false;
   }
 };
-
 
 export const CreateInformation = async (data) => {
   // Define the data to be sent in the request body
@@ -64,8 +63,8 @@ export const CreateInformation = async (data) => {
   }
 };
 
-export const EditTnformation = async (user_id, data) => {
-  const baseURL = `https://localhost:${port}/edit/${user_id}`;
+export const EditInformation = async (user_id, data) => {
+  const baseURL = `http://localhost:${port}/edit/${user_id}`;
   var data_format = JSON.stringify(data);
   try {
     // Send the PUT request
@@ -75,12 +74,33 @@ export const EditTnformation = async (user_id, data) => {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 201) {
+    console.log(response.status)
+    if (response.status === 200) {
       return true;
     }
     return false;
   } catch (e) {
     console.log("Failed to fail data", e);
+    return false;
+  }
+};
+
+export const DeleteInformation = async (user_id) => {
+  const baseURL = `http://localhost:${port}/delete/${user_id}`;
+  try {
+    const response = await axios.delete(baseURL);
+    console.log("API response:", response.status, response.data);
+
+    if (response.status === 200) {
+      console.log("Delete successful with status 201!");
+      return true;
+    } else {
+      console.log("Delete operation failed!");
+      return false;
+    }
+  } catch (err) {
+    console.error("API error:", err.response.status, err.response.data);
+
     return false;
   }
 };

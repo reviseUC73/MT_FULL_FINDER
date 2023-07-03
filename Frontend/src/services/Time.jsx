@@ -18,3 +18,23 @@ export const GetCurrentTime = () => {
 
   return formattedDate + " " + time;
 };
+export function ConvertDateTimeFormat(inputDateTime) {
+  const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.\d{3}Z$/;
+  const match = inputDateTime.match(regex);
+
+  if (!match) {
+    throw new Error("Invalid datetime format");
+  }
+
+  const [, year, month, day, hours, minutes, seconds] = match;
+  const convertedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+  return convertedDateTime;
+}
+
+// Example usage:
+// const inputDateTime = "2023-06-29T10:04:51.000Z";
+// const convertedDateTime = convertDateTimeFormat(inputDateTime);
+// console.log(convertedDateTime); // Output: "2023-06-29 10:04:51"
+
+

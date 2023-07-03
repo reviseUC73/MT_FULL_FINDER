@@ -1,7 +1,6 @@
 import React from "react";
 import "../body.css";
 import Button from "@mui/material/Button";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import KeyboardHideIcon from "@mui/icons-material/KeyboardHide";
@@ -11,15 +10,32 @@ import {
   CreateInformation,
 } from "../services/AccountApi";
 import { useState, useEffect } from "react";
-import { GetCurrentTime } from "../services/Time";
+import { ConvertDateTimeFormat, GetCurrentTime } from "../services/Time";
 import Swal from "sweetalert2";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Status_icon from "./Status_icon";
 
 const Table_data = () => {
+  const [data, setData] = useState([]);
+
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [isDuplicate, setDuplicate] = useState(false);
+  const [input, setInput] = useState({
+    AccountID: "",
+    CustomerCode: "",
+    CompanyName: "",
+    CompanyAddress1: "",
+    CompanyAddress2: "",
+    ContactPerson: "",
+    Mobile: "",
+    Email: "",
+    TaxID: "",
+    BillingCharge: "",
+    AccountStatus: "",
+    DateModify: GetCurrentTime(),
+    ModifiedBy: "ME",
+    DateCreated: GetCurrentTime(),
+    CreatedBy: "ME",
+  });
 
   const Clear_popup = () => {
     let create_popup = document.getElementsByClassName(
@@ -47,25 +63,6 @@ const Table_data = () => {
     setButtonDisabled(!isButtonDisabled);
     console.log("ShowPopup_ready_use_and_ready_creating_form");
   };
-
-  const [input, setInput] = useState({
-    AccountID: "",
-    CustomerCode: "",
-    CompanyName: "",
-    CompanyAddress1: "",
-    CompanyAddress2: "",
-    ContactPerson: "",
-    Mobile: "",
-    Email: "",
-    TaxID: "",
-    BillingCharge: "",
-    AccountStatus: "",
-    DateModify: GetCurrentTime(),
-    ModifiedBy: "ME",
-    DateCreated: GetCurrentTime(),
-    CreatedBy: "ME",
-  });
-
   // target state that changed from user
   const handleChange = async (e) => {
     const { target } = e; //  target = e.target is thing that changed state
@@ -75,7 +72,7 @@ const Table_data = () => {
       ...input, // another field that you is inputed(old)
       [name]: value,
     });
-    // console.log(input)
+    console.log(e.target.name)
     // console.log(isDuplicate);
   };
 
@@ -141,10 +138,8 @@ const Table_data = () => {
       });
       console.log("Error submitting form", err);
     }
-
   };
 
-  const [data, setData] = useState([]);
   // function that use in use effect when user insite to this page
   useEffect(() => {
     fetchData();
@@ -160,7 +155,6 @@ const Table_data = () => {
 
   return (
     <div>
-
       <div id="table_top">
         <div class="name_page"> Table </div>
         <Button
@@ -218,10 +212,10 @@ const Table_data = () => {
                     <li>Mobile: {row.Mobile}</li>
                     <li>TaxID: {row.TaxID}</li>
                     <li>BillingCharge: {row.BillingCharge}</li>
-                    <li>DateModify: {row.DateModify}</li>
+                    <li>DateModify: {ConvertDateTimeFormat(row.DateModify)}</li>
                     <li>ModifiedBy: {row.ModifiedBy}</li>
                     <li>CreatedBy: {row.CreatedBy}</li>
-                    <li>DateCreated: {row.DateCreated}</li>
+                    <li>DateCreated: {ConvertDateTimeFormat(row.DateCreated)}</li>
                   </ul>
                 </details>
               </td>

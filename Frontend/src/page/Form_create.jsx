@@ -1,5 +1,5 @@
 import React from "react";
-import "./Form_create.css";
+import "./Form.css";
 import { AllInformation } from "../services/AccountApi";
 import { useEffect, useState } from "react";
 

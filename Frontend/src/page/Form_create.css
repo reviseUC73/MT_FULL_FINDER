@@ -89,13 +89,18 @@ form .form-row .textarea {
   border-bottom: 0.2rem solid rgba(0, 0, 0, 0.12);
   padding-left: 1rem;
   background-color: ivory;
-  outline: 2px solid red;
+  outline: 2px solid #eb6767d1;
 }
 
 .input-data input:focus ~ label,
 .textarea textarea:focus ~ label,
 .input-data input:valid ~ label,
-.textarea textarea:valid ~ label {
+.textarea textarea:valid ~ label ,
+.input-data input[type="tel"][pattern]:focus ~label,
+.textarea textarea[type="tel"][pattern]:focus ~label,
+.input-data input[type="tel"][pattern]:valid  ~label,
+.textareatextarea[type="tel"][pattern]:valid ~label
+{
   transform: translateY(-20px);
   font-size: 0.7rem;
   color: #3498db;

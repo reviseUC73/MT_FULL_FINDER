@@ -64,7 +64,7 @@ const VerticalNavbar = () => {
             src="https://legacy.reactjs.org/logo-og.png"
             alt="User Profile"
           />
-          <div class="name-profile"> rew_setthanan </div>
+          <div className="name-profile"> rew_setthanan </div>
           <div id="mail-profile">setthanna50@gmail.com </div>
         </div>
         <NavLink

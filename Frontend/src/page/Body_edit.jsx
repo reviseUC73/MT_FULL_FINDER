@@ -18,6 +18,8 @@ const Body_edit = () => {
       console.error(error);
     }
   }
+
+  
   return (
     <div>
       <table className="order-list">
@@ -38,8 +40,9 @@ const Body_edit = () => {
         {/* Information each row */}
         <tbody>
           {/* row account 3 <api> */}
-          {data.map((row) => (
-            <tr key={row.id}>
+          {data.map((row, index) => (
+            <tr key={index}>
+              {console.log(row)}
               <td>{row.AccountID}</td>
               <td>{row.CustomerCode}</td>
               <td>{row.CompanyName}</td>
@@ -47,18 +50,16 @@ const Body_edit = () => {
               <td>{row.BillingCharge}</td>
               <td>{row.AccountStatus}</td>
               <td>
-                <td id="last_e">
-                  <button class="btn btn-edit">
-                    <span class="mdi mdi-edit mdi-24px"></span>
-                    <span class="mdi mdi-edit mdi-24px"></span>
-                    <span>Edit</span>
-                  </button>
-                  <button class="btn btn-delete">
-                    <span class="mdi mdi-delete mdi-24px"></span>
-                    <span class="mdi mdi-delete-empty mdi-24px"></span>
-                    <span>Delete</span>
-                  </button>
-                </td>
+                <button className="btn btn-edit">
+                  <span className="mdi mdi-edit mdi-24px"></span>
+                  <span className="mdi mdi-edit mdi-24px"></span>
+                  <span>Edit</span>
+                </button>
+                <button className="btn btn-delete">
+                  <span className="mdi mdi-delete mdi-24px"></span>
+                  <span className="mdi mdi-delete-empty mdi-24px"></span>
+                  <span>Delete</span>
+                </button>
               </td>
             </tr>
           ))}

@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import KeyboardHideIcon from "@mui/icons-material/KeyboardHide";
 import {
   AllInformation,
   CheckDuplicateData,
@@ -12,12 +13,24 @@ import {
 import { useState, useEffect } from "react";
 import { GetCurrentTime } from "../services/Time";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import Status_icon from "./Status_icon";
 
 const Table_data = () => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [isDuplicate, setDuplicate] = useState(false);
-  const Close_popup = () => {
+
+  const Clear_popup = () => {
+    let create_popup = document.getElementsByClassName(
+      "container_form_popup"
+    )[0];
+    create_popup.style.display = "none";
+    setButtonDisabled(!isButtonDisabled);
+    setDuplicate(false);
+    window.location.reload();
+  };
+  const Hide_popup = () => {
     let create_popup = document.getElementsByClassName(
       "container_form_popup"
     )[0];
@@ -62,7 +75,8 @@ const Table_data = () => {
       ...input, // another field that you is inputed(old)
       [name]: value,
     });
-    console.log(isDuplicate);
+    // console.log(input)
+    // console.log(isDuplicate);
   };
 
   const OnSubmit = async (e) => {
@@ -72,12 +86,12 @@ const Table_data = () => {
 
     if (isDuplicate) {
       // Handle duplicate case
+
       console.log("Duplicate data found!");
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Duplicate data found!",
-        footer: '<a href="">Why do I have this issue?</a>',
       });
       setDuplicate(true);
       return;
@@ -107,8 +121,8 @@ const Table_data = () => {
         Swal.fire({
           icon: "success",
           title: "The data has been created.",
-          showCancelButton: false,
-          showCloseButton: false,
+          // showCancelButton: false,
+          // showCloseButton: false,
           timer: 1500,
         }).then(() => window.location.reload());
       } else {
@@ -116,7 +130,6 @@ const Table_data = () => {
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
-          footer: '<a href="">Why do I have this issue?</a>',
         });
         console.log("Failed to submit form");
       }
@@ -125,48 +138,10 @@ const Table_data = () => {
         icon: "error",
         title: "Oops...",
         text: "Error",
-        footer: '<a href="">Why do I have this issue?</a>',
       });
       console.log("Error submitting form", err);
     }
 
-    //   try {
-    //     const response = await fetch("/create", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(formData),
-    //     });
-    //     if (response.ok) {
-    //       // Handle success
-    //       console.log("Data submitted successfully");
-    //       // Reset the form
-    //       setFormData({
-    //         accountId: "",
-    //         customerCode: "",
-    //         companyName: "",
-    //         companyAddress1: "",
-    //         companyAddress2: "",
-    //         contactPerson: "",
-    //         mobile: "",
-    //         email: "",
-    //         taxId: "",
-    //         billingCharge: "",
-    //         accountStatus: "",
-    //         dateModified: "",
-    //         modifiedBy: "",
-    //         dateCreated: "",
-    //         createdBy: "",
-    //       });
-    //     } else {
-    //       // Handle error
-    //       console.error("Failed to submit data");
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to submit data", error);
-    // }
-    // console.log(e);
   };
 
   const [data, setData] = useState([]);
@@ -185,7 +160,7 @@ const Table_data = () => {
 
   return (
     <div>
-      {/* name this path or page */}
+
       <div id="table_top">
         <div class="name_page"> Table </div>
         <Button
@@ -224,7 +199,12 @@ const Table_data = () => {
               <td>{row.CompanyName}</td>
               <td>{row.Email}</td>
               <td>{row.BillingCharge}</td>
-              <td>{row.AccountStatus}</td>
+              {/* <td>{row.AccountStatus}</td> */}
+              <td>
+                <Status_icon account_status={Boolean(row.AccountStatus)} />
+                {/* {console.log(!Boolean("mfoemfoemf"))} */}
+              </td>
+
               <td>
                 <details className="descri">
                   <summary
@@ -252,8 +232,8 @@ const Table_data = () => {
 
       {/* Create data popup */}
       <div class="container_form_popup">
-        <IconButton id="close_form" name="details" onClick={Close_popup}>
-          <HighlightOffIcon />
+        <IconButton id="close_form" name="details" onClick={Hide_popup}>
+          <KeyboardHideIcon color="disabled" />
         </IconButton>
         <form onSubmit={OnSubmit}>
           {/* <!-- row 1 --> */}
@@ -344,9 +324,10 @@ const Table_data = () => {
             </div>
             <div class="input-data">
               <input
-                type="text"
+                type="tel"
                 required
                 name="Mobile"
+                pattern="[0]{1}[0-9]{9}"
                 onChange={handleChange}
               />
               <div class="underline"></div>
@@ -368,7 +349,9 @@ const Table_data = () => {
             </div>
             <div class="input-data">
               <input
-                type="text"
+                type="number"
+                min="0"
+                step="0.01"
                 required
                 name="BillingCharge"
                 onChange={handleChange}
@@ -391,9 +374,11 @@ const Table_data = () => {
               <label for="">Email Address</label>
             </div>
           </div>
-
+          <Button variant="text" size="large" onClick={Hide_popup} id="hide">
+            Hide
+          </Button>
           <Stack id="group_bottom_popup" spacing={2} direction="row">
-            <Button variant="text" size="large" onClick={Close_popup}>
+            <Button variant="text" size="large" onClick={Clear_popup}>
               Close
             </Button>
             <Button size="large" type="submit" variant="contained">

@@ -12,6 +12,10 @@
 #group_bottom_popup {
   float: right;
 }
+
+#hide{
+  float: left;
+}
 /* list table custumer */
 .content {
   flex-basis: 80%;

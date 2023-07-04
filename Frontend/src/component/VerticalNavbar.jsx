@@ -5,26 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { IconButton } from "@mui/material";
 
 const VerticalNavbar = () => {
-  // const Show_nav= () => {
-  //   console.log("ShowPopup");
-  //   let create_popup = document.getElementsByClassName("container_form_popup")[0];
-  //   // create_popup.style.display = create_popup.style.display === "none" ? "block" : "none";
-  //   if (create_popup.style.display === "none") {
-  //     create_popup.style.display = "block";
-  //   } else {
-  //     create_popup.style.display = "none";
-  //   }
-  // };
-
   const [isNavDisabled, setNavDisabled] = useState(false);
-  // const Close_nav = () => {
-  //   let nav = document.getElementsByClassName("vertical-navbar")[0];
-  //   nav.style.display = "none";
-  //   setNavDisabled(!isNavDisabled);
-  // };
-  // const Show_nav = () => {
-  //   nav = document.getElementById("hide_menubar");
-  // };
 
   const DisplayNav = () => {
     let main_nav = document.getElementsByClassName("vertical-navbar")[0];
@@ -75,26 +56,25 @@ const VerticalNavbar = () => {
           {" "}
           Table{" "}
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to="/create"
           className={({ isActive }) => (isActive ? activeClass : undefined)}
-          // onClick={Show_popup}
+   
         >
           Create
-        </NavLink>
+        </NavLink> */}
         <NavLink
           to="/edit"
           className={({ isActive }) => (isActive ? activeClass : undefined)}
         >
           Edit
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to="/delete"
           className={({ isActive }) => (isActive ? activeClass : undefined)}
         >
           Delete
-        </NavLink>
-        {/* <NavLink >Sign out</NavLink> */}
+        </NavLink> */}
       </nav>
     </>
   );

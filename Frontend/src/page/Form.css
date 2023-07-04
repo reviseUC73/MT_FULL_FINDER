@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700/&display=swap");
 
-.container_form_popup {
+.container_form_popup_create {
   display: none;
   position: absolute;
-  width: 800px;
+  width: 50rem;
+  max-width: 50%;
+  max-height: 90%;
   padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 0.7rem;
   background-color: rgba(179, 211, 255, 0.656);
-  left: 0;
+  left: 3rem;
   right: 0;
   top: 3rem;
   margin-left: auto;
@@ -16,10 +18,29 @@
   backdrop-filter: blur(2px);
   padding: 1.5rem;
 }
+.container_form_popup_edit {
+  display: none;
+  position: absolute;
+  width: 50rem;
+  max-width: 50%;
+  max-height: 90%;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.7rem;
+  background-color: rgba(179, 211, 255, 0.656);
 
+  left: 3rem;
+  right: 0;
+  top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  backdrop-filter: blur(2px);
+  padding: 1.5rem;
+}
 .container_form {
   /* display: none; */
-  width: 800px;
+  /* width: 800px; */
+  /* width: 50rem; */
   padding: 25px 40px 10px 40px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 0.7rem;
@@ -90,15 +111,16 @@ form .form-row .textarea {
 .input-data input:focus ~ label,
 .textarea textarea:focus ~ label,
 .input-data input:valid ~ label,
-.textarea textarea:valid ~ label ,
-.input-data input[type="tel"][pattern]:focus ~label,
-.textarea textarea[type="tel"][pattern]:focus ~label,
-.input-data input[type="tel"][pattern]:valid  ~label,
-.textareatextarea[type="tel"][pattern]:valid ~label{
+.textarea textarea:valid ~ label,
+.input-data input[type="tel"][pattern]:focus ~ label,
+.textarea textarea[type="tel"][pattern]:focus ~ label,
+.input-data input[type="tel"][pattern]:valid ~ label,
+.textareatextarea[type="tel"][pattern]:valid ~ label {
   transform: translateY(-20px);
   font-size: 0.7rem;
   color: #3498db;
 }
+
 
 .textarea textarea {
   resize: none;
@@ -140,6 +162,17 @@ form .form-row .textarea {
   transition: transform 0.3s ease;
 }
 
+#edit_buttom {
+  /* margin: 2rem; */
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  /* justify-content: flex-end; */
+  float: right;
+  margin-left: 1rem;
+}
+/* #save{
+  margin: 2rem;
+} */
 /* submit buttom
 .input-data input:focus ~ .underline:before,
 .input-data input:valid ~ .underline:before,

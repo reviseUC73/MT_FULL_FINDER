@@ -8,8 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Status_icon({account_status}) {
-  // account_status is Boolean
-  // var type_account = Boolean(account_status)
   console.log((account_status))
   if (account_status === true) 
     return (

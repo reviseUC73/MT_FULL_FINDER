@@ -1,6 +1,10 @@
 /* nav bar vertival */
   .container {
     display: flex;
+    /* max-width: 1140px; */
+    /* display: flex; */
+
+
   }
 
 
@@ -9,19 +13,15 @@
     margin-left: 3rem;
     display: none;
     transition: all 1s ease;
-    
-
+  
   }
-
   .vertical-navbar {
-    /* display: none; */
-    /* transition: all 0.3s ease; */
 
     flex-basis: 20%;
     background-color: rgb(123, 154, 247);
     padding: 0.7rem;
     height: 100vh;
-    overflow-y: auto;
+    /* overflow-y: auto; */
   }
   .vertical-navbar a {
     display: block;
@@ -29,12 +29,12 @@
     padding: 0.3rem 1rem;
     font-size: 1.1rem;
     margin: 0.8rem;
-    /* text-decoration: none; */
   }
 
   .vertical-navbar-active {
     background-color: rgb(114, 135, 240);
     color: white;
+    border-radius: 0.5rem;
   }
 
   /* user profile in nav */
@@ -78,7 +78,6 @@
 
 #name-com {
   color: white;
-  
   font-size: 1.4rem;
   text-align:  center;
   /* margin: 1rem; */

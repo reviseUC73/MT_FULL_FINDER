@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 
 const VerticalNavbar = () => {
   const [isNavDisabled, setNavDisabled] = useState(false);
+  
 
   const DisplayNav = () => {
     let main_nav = document.getElementsByClassName("vertical-navbar")[0];
@@ -14,6 +15,7 @@ const VerticalNavbar = () => {
     if (isNavDisabled) {
       main_nav.style.display = "block";
       hide_nav.style.display = "none";
+      // contained.style["flex-basis"] = 
     } else {
       main_nav.style.display = "none";
       hide_nav.style.display = "block";

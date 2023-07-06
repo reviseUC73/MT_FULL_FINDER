@@ -22,7 +22,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import SearchBar from "../component/SearchBar";
+import Search_bar from "../component/Search_bar";
+// input data that use in bady table to sent input to api ex. create data edit data
+// data that show in table view
 const Table_data = () => {
   const [input, setInput] = useState({
     AccountID: "",
@@ -65,8 +68,6 @@ const Table_data = () => {
     );
   }
 
-  const [data, setData] = useState([]);
-
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [isDuplicate, setDuplicate] = useState(false);
 
@@ -108,12 +109,32 @@ const Table_data = () => {
     // console.log(e.target.name);
     // console.log(isDuplicate);
     console.log(input);
+    // console.log(input.AccountID.trim())
   };
-
+  // function that use in use effect when user insite to this page
+  const [result, setResult] = useState([]);
+  
   const OnSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     console.log("start submit");
-    const isDuplicate = await CheckDuplicateData(input);
+    const trimmedData = {
+      AccountID: input.AccountID.trim(),
+      CustomerCode: input.CustomerCode.trim(),
+      CompanyName: input.CompanyName.trim(),
+      CompanyAddress1: input.CompanyAddress1.trim(),
+      CompanyAddress2: input.CompanyAddress2.trim(),
+      ContactPerson: input.ContactPerson.trim(),
+      Mobile: input.Mobile.trim(),
+      Email: input.Email.trim(),
+      TaxID: input.TaxID.trim(),
+      BillingCharge: input.BillingCharge,
+      AccountStatus: input.AccountStatus,
+      DateModify: input.DateModify.trim(),
+      ModifiedBy: input.ModifiedBy.trim(),
+      DateCreated: input.DateCreated.trim(),
+      CreatedBy: input.CreatedBy.trim(),
+    };
+    const isDuplicate = await CheckDuplicateData(trimmedData);
 
     if (isDuplicate) {
       // Handle duplicate case
@@ -129,7 +150,7 @@ const Table_data = () => {
     }
     try {
       setDuplicate(false);
-      const success = await CreateInformation(input);
+      const success = await CreateInformation(trimmedData);
       if (success) {
         console.log("Form submitted successfully");
         setInput({
@@ -174,19 +195,6 @@ const Table_data = () => {
     }
   };
 
-  // function that use in use effect when user insite to this page
-  useEffect(() => {
-    fetchData();
-  }, []);
-  async function fetchData() {
-    try {
-      const response = await AllInformation();
-      setData(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   const theme = createTheme({
     palette: {
       del: {
@@ -218,64 +226,68 @@ const Table_data = () => {
           </Button>
         </ThemeProvider>
       </div>
+      <SearchBar setResult={setResult}/>
+      {/* <Search_bar /> */}
+      <div id="overflowX">
+        <table className="order-list">
+          {/* Main colum */}
+          <thead>
+            <tr>
+              <th>AccountID</th>
+              <th>CostomerCode</th>
+              <th>CompanyName</th>
 
-      <table className="order-list">
-        {/* Main colum */}
-        <thead>
-          <tr>
-            <th>AccountID</th>
-            <th>CostomerCode</th>
-            <th>CompanyName</th>
-
-            <th>Email</th>
-            <th>Billing Charge (%)</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        {/* Information each row */}
-        <tbody>
-          {/* row account 3 <api> */}
-          {data.map((row) => (
-            <tr key={row.id}>
-              <td>{row.AccountID}</td>
-              <td>{row.CustomerCode}</td>
-              <td>{row.CompanyName}</td>
-              <td>{row.Email}</td>
-              <td>{row.BillingCharge}</td>
-              {/* <td>{row.AccountStatus}</td> */}
-              <td>
-                <Status_icon account_status={Boolean(row.AccountStatus)} />
-              </td>
-
-              <td>
-                <details className="descri">
-                  <summary
-                    data-open="▸ Show Less"
-                    data-close="▾ Show More"
-                  ></summary>
-                  <ul>
-                    <li>CompanyAddress1: {row.CompanyAddress1}</li>
-                    <li>CompanyAddress2: {row.CompanyAddress2}</li>
-                    <li>ContactPerson: {row.ContactPerson}</li>
-                    <li>Mobile: {row.Mobile}</li>
-                    <li>TaxID: {row.TaxID}</li>
-                    <li>BillingCharge: {row.BillingCharge}</li>
-                    <li>DateModify: {ConvertDateTimeFormat(row.DateModify)}</li>
-                    <li>ModifiedBy: {row.ModifiedBy}</li>
-                    <li>CreatedBy: {row.CreatedBy}</li>
-                    <li>
-                      DateCreated: {ConvertDateTimeFormat(row.DateCreated)}
-                    </li>
-                  </ul>
-                </details>
-              </td>
+              <th>Email</th>
+              <th>Billing Charge (%)</th>
+              <th>Status</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
 
+          {/* Information each row */}
+          <tbody>
+            {/* row account 3 <api> */}
+            {result.map((row) => (
+              <tr key={row.id}>
+                <td>{row.AccountID}</td>
+                <td>{row.CustomerCode}</td>
+                <td>{row.CompanyName}</td>
+                <td>{row.Email}</td>
+                <td>{row.BillingCharge}</td>
+                {/* <td>{row.AccountStatus}</td> */}
+                <td>
+                  <Status_icon account_status={Boolean(row.AccountStatus)} />
+                </td>
+
+                <td>
+                  <details className="descri">
+                    <summary
+                      data-open="▸ Show Less"
+                      data-close="▾ Show More"
+                    ></summary>
+                    <ul>
+                      <li>CompanyAddress1: {row.CompanyAddress1}</li>
+                      <li>CompanyAddress2: {row.CompanyAddress2}</li>
+                      <li>ContactPerson: {row.ContactPerson}</li>
+                      <li>Mobile: {row.Mobile}</li>
+                      <li>TaxID: {row.TaxID}</li>
+                      <li>BillingCharge: {row.BillingCharge}</li>
+                      <li>
+                        DateModify: {ConvertDateTimeFormat(row.DateModify)}
+                      </li>
+                      <li>ModifiedBy: {row.ModifiedBy}</li>
+                      <li>CreatedBy: {row.CreatedBy}</li>
+                      <li>
+                        DateCreated: {ConvertDateTimeFormat(row.DateCreated)}
+                      </li>
+                    </ul>
+                  </details>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Create data popup */}
       <div class="container_form_popup_create">
         <IconButton id="close_form" name="details" onClick={Hide_popup}>

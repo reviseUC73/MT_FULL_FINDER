@@ -1,0 +1,19 @@
+#SearchBar {
+  margin-right :1rem;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 1rem;
+  border-radius: 1.3rem;
+  /* width: 40%; */
+  
+}
+
+@media screen and (max-width: 800px) {
+  #SearchBar {
+    margin-left: 0; /* Reset margin */
+    margin-top: 10px; /* Add some space between elements */
+    order: 1; /* Change the order to move the element below */
+    width: 100%; /* Make the element full width */
+    
+  }
+}

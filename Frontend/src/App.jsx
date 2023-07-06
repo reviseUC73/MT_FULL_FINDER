@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import "./App.css";
 
 import VerticalNavbar from "./component/VerticalNavbar.jsx";
@@ -11,12 +9,13 @@ import Form_create from "./page/Form_create";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
-  const [count, setCount] = useState(0);
+  
 
   return (
     <div className="container">
       <VerticalNavbar />
       <div className="content">
+      
       <Routes>
         <Route path="/" element={<Table_data />} />
         <Route path="edit" element={<Body_edit />} />
@@ -24,6 +23,8 @@ function App() {
         <Route path="create" element={<Form_create/>} />
 
       </Routes>
+     
+     
       </div>
     </div>
   );

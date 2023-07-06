@@ -11,10 +11,6 @@
   position: relative;
 }
 #demo-simple-select-label {
-  /* float: left;
-  margin:  0;
-  position: absolute;
-  right: 13rem; */
   text-align: center;
   color: #3498db;
   top: 0.7rem;
@@ -22,4 +18,3 @@
   left: 2.5rem;
 
 }
-

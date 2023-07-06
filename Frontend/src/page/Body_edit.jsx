@@ -23,6 +23,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import SearchBar from "../component/SearchBar";
 
 const Body_edit = () => {
   const [input, setInput] = useState({
@@ -44,6 +45,7 @@ const Body_edit = () => {
   });
 
   const SelectChange = (event) => {
+    console.log(input.AccountStatus);
     setInput({ ...input, AccountStatus: event.target.value });
     console.log(input);
   };
@@ -66,22 +68,12 @@ const Body_edit = () => {
       </Box>
     );
   }
+  const [result, setResult] = useState([]);
 
-  const [data, setData] = useState([]);
   const [editMode, setEditMode] = useState(false);
   // function that use in use effect when user insite to this page
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  async function fetchData() {
-    try {
-      const response = await AllInformation();
-      setData(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
   const Delete_data = async (account_id) => {
     try {
       const result = await Swal.fire({
@@ -139,15 +131,6 @@ const Body_edit = () => {
     // console.log(ConvertDateTimeFormat(time));
     console.log(input);
   };
-  const Clear_popup = () => {
-    let create_popup = document.getElementsByClassName(
-      "container_form_popup_edit"
-    )[0];
-    create_popup.style.display = "none";
-    // setButtonDisabled(!isButtonDisabled);
-    // setDuplicate(false);
-    window.location.reload();
-  };
 
   const Hide_popup = () => {
     let create_popup = document.getElementsByClassName(
@@ -167,7 +150,7 @@ const Body_edit = () => {
       // setButtonDisabled(!isButtonDisabled);
       console.log("ShowPopup_ready_use_and_ready_creating_form");
     };
-    console.log(editMode);
+    // console.log(editMode);
     // e.preventDefault();
     if (!editMode) {
       Show_popup();
@@ -178,29 +161,74 @@ const Body_edit = () => {
     // console.log(input);
   };
   const Edit_data = async (e, account_id) => {
-    const editedData = {
-      ...input,
-      DateModify: ConvertDateTimeFormat(input.DateCreated),
-      ModifiedBy: "ME",
-      DateCreated: GetCurrentTime(),
-      CreatedBy: "ME",
-    };
+    e.preventDefault();
 
-    console.log(account_id);
     try {
-      const edited = await EditInformation(account_id, editedData);
-      setEditMode(false);
-      if (edited) {
-        console.log("Edit done successfully!");
-        // Handle successful edit
-      } else {
-        console.log("Failed to edit information.");
-        // Handle edit failure
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, edit it!",
+      });
+
+      // console.log(account_id);
+      try {
+        const editedData = {
+          ...input,
+          DateModify: ConvertDateTimeFormat(input.DateCreated),
+          ModifiedBy: "ME",
+          DateCreated: GetCurrentTime(),
+          CreatedBy: "ME",
+        };
+        const trimmedData = {
+          AccountID: editedData.AccountID.trim(),
+          CustomerCode: editedData.CustomerCode.trim(),
+          CompanyName: editedData.CompanyName.trim(),
+          CompanyAddress1: editedData.CompanyAddress1.trim(),
+          CompanyAddress2: editedData.CompanyAddress2.trim(),
+          ContactPerson: editedData.ContactPerson.trim(),
+          Mobile: editedData.Mobile.trim(),
+          Email: editedData.Email.trim(),
+          TaxID: editedData.TaxID.trim(),
+          BillingCharge: editedData.BillingCharge,
+          AccountStatus: editedData.AccountStatus,
+          DateModify: editedData.DateModify.trim(),
+          ModifiedBy: editedData.ModifiedBy.trim(),
+          DateCreated: editedData.DateCreated.trim(),
+          CreatedBy: editedData.CreatedBy.trim(),
+        };
+        if (result.isConfirmed) {
+          const edited = await EditInformation(account_id, trimmedData);
+          setEditMode(false);
+
+          if (edited) {
+            console.log("Edit done successfully!");
+            Swal.fire({
+              icon: "success",
+              title: `Account ID : ${account_id} <br/>has been Changed`,
+              timer: 1500,
+            }).then(() => window.location.reload());
+          } else {
+            console.log("Failed to edit information.");
+            // Handle edit failure
+          }
+        }
+      } catch (err) {
+        console.log("Error, " + err.message);
       }
     } catch (err) {
-      console.log("Error, " + err.message);
+      console.log(err);
+      Swal.fire(
+        "Error",
+        "An error occurred while displaying the confirmation dialog.",
+        "error"
+      );
     }
   };
+
   const theme = createTheme({
     palette: {
       del: {
@@ -220,6 +248,8 @@ const Body_edit = () => {
       <div id="table_top">
         <div className="name_page"> Edit Data </div>
       </div>
+      <SearchBar setResult={setResult}/>
+
       <table className="order-list">
         {/* Main colum */}
         <thead>
@@ -234,11 +264,10 @@ const Body_edit = () => {
             <th></th>
           </tr>
         </thead>
-
         {/* Information each row */}
         <tbody>
           {/* row account 3 <api> */}
-          {data.map((row, index) => (
+          {result.map((row, index) => (
             <tr key={index}>
               {/* {console.log(row)} */}
               <td>{row.AccountID}</td>
@@ -246,10 +275,8 @@ const Body_edit = () => {
               <td>{row.CompanyName}</td>
               <td>{row.Email}</td>
               <td>{row.BillingCharge}</td>
-              {/* <td>{row.AccountStatus}</td> */}
               <td>
                 <Status_icon account_status={Boolean(row.AccountStatus)} />
-           
               </td>
               <td>
                 <Stack direction="row" spacing={2}>
@@ -287,9 +314,6 @@ const Body_edit = () => {
       <div class="container_form_popup_edit">
         <form onSubmit={(e) => Edit_data(e, input.AccountID)}>
           {/* <!-- row 2 --> */}
-          {console.log("Edit")}
-          {/* {console.log({row.AccountID})} */}
-
           <div class="form-row">
             <div class="input-data">
               <input

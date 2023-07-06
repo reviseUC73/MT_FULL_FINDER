@@ -1,5 +1,5 @@
 import React from "react";
-import "./Form_create.css";
+import "./Form.css";
 import { AllInformation } from "../services/AccountApi";
 import { useEffect, useState } from "react";
 
@@ -26,7 +26,7 @@ const Form_create = () => {
     <div>
       \{" "}
       {data.map((item) => (
-        <div key={item.AccountID}>
+        <div key={item.iID}>
           <p>Company Name: {item.CompanyName}</p>
           <p>Contact Person: {item.ContactPerson}</p>
         </div>

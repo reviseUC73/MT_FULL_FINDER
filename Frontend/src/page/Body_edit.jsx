@@ -2,7 +2,7 @@ import React from "react";
 import "../body.css";
 import Button from "@mui/material/Button";
 import "./Form.css";
-import "./edit.css";
+
 import Swal from "sweetalert2/src/sweetalert2.js";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";

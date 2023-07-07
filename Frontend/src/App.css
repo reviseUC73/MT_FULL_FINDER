@@ -2,16 +2,33 @@
   text-align: center;
 }
 
-
 .container {
   display: flex;
   /* display: flex; */
-
 }
 
 /* list table custumer */
 .content {
   flex-basis: 100%;
-  padding: 20px;
-  overflow-x:auto
+  padding: 15px;
+  overflow-x: auto;
+}
+
+.container_auth {
+  /* overflow: auto; */
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(123, 154, 247);
+  /* box-sizing: border-box; */
+
+}
+
+*{
+
+
+  box-sizing: border-box;
+
 }

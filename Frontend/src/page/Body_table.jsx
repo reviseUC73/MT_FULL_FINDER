@@ -23,10 +23,19 @@ import Select from "@mui/material/Select";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SearchBar from "../component/SearchBar";
-import Search_bar from "../component/Search_bar";
+import { useMsal } from "@azure/msal-react";
 // input data that use in bady table to sent input to api ex. create data edit data
 // data that show in table view
 const Table_data = () => {
+  const { instance } = useMsal();
+
+  let activeAccount = "error login";
+
+  if (instance) {
+    // bool or undefine
+    activeAccount = instance.getActiveAccount();
+    console.log(activeAccount);
+  }
   const [input, setInput] = useState({
     AccountID: "",
     CustomerCode: "",
@@ -40,9 +49,9 @@ const Table_data = () => {
     BillingCharge: "",
     AccountStatus: 1,
     DateModify: GetCurrentTime(),
-    ModifiedBy: "ME",
+    ModifiedBy: activeAccount ? activeAccount.name : "unknown",
     DateCreated: GetCurrentTime(),
-    CreatedBy: "ME",
+    CreatedBy: activeAccount ? activeAccount.name : "unknown",
   });
   const SelectChange = (event) => {
     setInput({ ...input, AccountStatus: event.target.value });
@@ -113,9 +122,9 @@ const Table_data = () => {
   };
   // function that use in use effect when user insite to this page
   const [result, setResult] = useState([]);
-  
+
   const OnSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     console.log("start submit");
     const trimmedData = {
       AccountID: input.AccountID.trim(),
@@ -226,7 +235,7 @@ const Table_data = () => {
           </Button>
         </ThemeProvider>
       </div>
-      <SearchBar setResult={setResult}/>
+      <SearchBar setResult={setResult} />
       {/* <Search_bar /> */}
       <div id="overflowX">
         <table className="order-list">

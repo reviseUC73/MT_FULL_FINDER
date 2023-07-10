@@ -1,7 +1,30 @@
 import React, { useState } from "react";
 import "./Login.css";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from "@azure/msal-react";
+
+import { loginRequest } from "../authConfig";
+
 function Login() {
   const [login, setLogin] = useState(true);
+
+  const { instance } = useMsal();
+
+  let activeAccount;
+
+  if (instance) {
+    // bool or undefine
+    activeAccount = instance.getActiveAccount();
+    console.log(activeAccount);
+  }
+  
+
+  const handleLogoutRedirect = () => {
+    instance.logoutRedirect().catch((error) => console.log(error));
+  };
 
   // const onClick_auth = () => {
   //   let login_element = document.getElementById('login-form');
@@ -58,9 +81,15 @@ function Login() {
           Sign up
         </a>
       </p>{" "}
-      <a href="/" id="login-link">
+      {/* <a href="/" id="login-link">
         main
-      </a>
+      </a> */}
+      {/* <button id="button_auth" onClick={handleLoginRedirect}>
+        Login in with Azure AD
+      </button> */}
+      <button id="button_auth" onClick={handleLogoutRedirect}>
+        Log out AZ
+      </button>
     </div>
   );
 }

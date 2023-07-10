@@ -66,8 +66,6 @@
   /* padding: 1rem; */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.413);
   margin-bottom: 1rem;
-  
-  
 }
 
 #top-nav-bar {
@@ -88,8 +86,8 @@
   /* margin: 1rem; */
 }
 
-
 #logout_button {
+  cursor: pointer;
   display: block;
   margin-top: auto; /* Pushes the button to the bottom */
   margin-left: 1rem; /* Adjust the margin as needed */

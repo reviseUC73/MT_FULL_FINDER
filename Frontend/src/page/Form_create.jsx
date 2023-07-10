@@ -3,7 +3,6 @@ import "./Form.css";
 import { AllInformation } from "../services/AccountApi";
 import { useEffect, useState } from "react";
 
-
 const Form_create = () => {
   const [data, setData] = useState([]);
 

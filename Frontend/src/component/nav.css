@@ -22,7 +22,7 @@
   flex-basis: 25%;
   background-color: rgb(123, 154, 247);
   padding: 0.7rem;
-  height: 100vh;
+  /* height: 100vh; */
   /* overflow-y: auto; */
 }
 .vertical-navbar a {

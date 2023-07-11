@@ -81,12 +81,6 @@ function Login() {
           Sign up
         </a>
       </p>{" "}
-      {/* <a href="/" id="login-link">
-        main
-      </a> */}
-      {/* <button id="button_auth" onClick={handleLoginRedirect}>
-        Login in with Azure AD
-      </button> */}
       <button id="button_auth" onClick={handleLogoutRedirect}>
         Log out AZ
       </button>

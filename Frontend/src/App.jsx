@@ -22,7 +22,7 @@ import Login_azure from "./page/Login_Azure_page.jsx";
 function App({ instance }) {
   // const isLoginPage =
   //   location.pathname === "/login" || location.pathname === "/register";
-  const isLoginPage = location.pathname === "/login";
+  // const isLoginPage = location.pathname === "/login";
 
   // const active_account = instance.getActiveAccount();
 

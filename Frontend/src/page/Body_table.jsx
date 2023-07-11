@@ -90,6 +90,8 @@ const Table_data = () => {
     window.location.reload();
   };
   const Hide_popup = () => {
+    sort_input();
+
     let create_popup = document.getElementsByClassName(
       "container_form_popup_create"
     )[0];
@@ -285,9 +287,10 @@ const Table_data = () => {
                         DateModify: {ConvertDateTimeFormat(row.DateModify)}
                       </li>
                       <li>ModifiedBy: {row.ModifiedBy}</li>
-                      <li>CreatedBy: {row.CreatedBy}</li>
+
                       <li>
                         DateCreated: {ConvertDateTimeFormat(row.DateCreated)}
+                        <li>CreatedBy: {row.CreatedBy}</li>
                       </li>
                     </ul>
                   </details>
@@ -299,9 +302,9 @@ const Table_data = () => {
       </div>
       {/* Create data popup */}
       <div class="container_form_popup_create">
-        <IconButton id="close_form" name="details" onClick={Hide_popup}>
+        {/* <IconButton id="close_form" name="details" onClick={Hide_popup}>
           <KeyboardHideIcon color="disabled" />
-        </IconButton>
+        </IconButton> */}
         <form onSubmit={OnSubmit}>
           {/* <!-- row 1 --> */}
           <div class="form-row">

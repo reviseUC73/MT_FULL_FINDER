@@ -30,6 +30,8 @@ const VerticalNavbar = () => {
     let main_nav = document.getElementsByClassName("vertical-navbar")[0];
     let hide_nav = document.getElementById("hide_menubar");
     let content = document.getElementsByClassName("content")[0];
+    // content.style.marginRight = '3rem';
+
     if (isNavDisabled) {
       main_nav.style.display = "block";
       hide_nav.style.display = "none";

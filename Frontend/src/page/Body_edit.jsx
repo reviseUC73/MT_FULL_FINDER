@@ -1,22 +1,29 @@
 import React from "react";
+import { useState, useEffect } from "react";
+
 import "../body.css";
-import Button from "@mui/material/Button";
 import "./Form.css";
-import "./edit.css";
+
 import Swal from "sweetalert2/src/sweetalert2.js";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import EditIcon from "@mui/icons-material/Edit";
-import Stack from "@mui/material/Stack";
+
+// Service
 import {
   AllInformation,
   DeleteInformation,
   EditInformation,
 } from "../services/AccountApi";
-import { useState, useEffect } from "react";
 import { ConvertDateTimeFormat, GetCurrentTime } from "../services/Time";
-import DeleteIcon from "@mui/icons-material/Delete";
 
+//mui
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
+
+//icon
+import Button from "@mui/material/Button";
 import Status_icon from "./Status_icon";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+
 // selectin bar
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -25,7 +32,21 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import SearchBar from "../component/SearchBar";
 
+// az
+import { useMsal } from "@azure/msal-react";
+
 const Body_edit = () => {
+  const { instance } = useMsal();
+
+  let activeAccount = "error login";
+
+  if (instance) {
+    // bool or undefine
+    activeAccount = instance.getActiveAccount();
+    console.log(activeAccount);
+  }
+
+  //base input
   const [input, setInput] = useState({
     AccountID: "",
     CustomerCode: "",
@@ -44,10 +65,11 @@ const Body_edit = () => {
     CreatedBy: "ME",
   });
 
+  // change data selector dor get data
   const SelectChange = (event) => {
     console.log(input.AccountStatus);
     setInput({ ...input, AccountStatus: event.target.value });
-    console.log(input);
+    // console.log(input);
   };
   function SelectStatus() {
     return (
@@ -73,7 +95,6 @@ const Body_edit = () => {
   const [editMode, setEditMode] = useState(false);
   // function that use in use effect when user insite to this page
 
-
   const Delete_data = async (account_id) => {
     try {
       const result = await Swal.fire({
@@ -87,18 +108,16 @@ const Body_edit = () => {
       });
 
       if (result.isConfirmed) {
-        Swal.fire(
-          "Deleted!",
-          `Account ID : ${account_id} <br/>has been deleted.`,
-          "success"
-        );
         console.log(account_id);
         try {
           const deleted = await DeleteInformation(account_id);
           if (deleted) {
             console.log("Delete_data done");
-            const response = await AllInformation();
-            setData(response);
+            Swal.fire({
+              icon: "success",
+              title: `Account ID : ${account_id} <br/>been deleted`,
+              timer: 1500,
+            }).then(() => window.location.reload());
           } else {
             console.log("Delete_data false");
           }
@@ -120,6 +139,8 @@ const Body_edit = () => {
       );
     }
   };
+
+  // change input textarea value
   const handleChange = async (e) => {
     const { target } = e; //  target = e.target is thing that changed state
     const { name } = target; // name = e.target.name
@@ -179,9 +200,9 @@ const Body_edit = () => {
         const editedData = {
           ...input,
           DateModify: ConvertDateTimeFormat(input.DateCreated),
-          ModifiedBy: "ME",
+          ModifiedBy: activeAccount.name,
           DateCreated: GetCurrentTime(),
-          CreatedBy: "ME",
+          // CreatedBy: "ME",
         };
         const trimmedData = {
           AccountID: editedData.AccountID.trim(),
@@ -248,7 +269,7 @@ const Body_edit = () => {
       <div id="table_top">
         <div className="name_page"> Edit Data </div>
       </div>
-      <SearchBar setResult={setResult}/>
+      <SearchBar setResult={setResult} />
 
       <table className="order-list">
         {/* Main colum */}

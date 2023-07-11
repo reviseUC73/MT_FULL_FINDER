@@ -1,6 +1,6 @@
 import React from "react";
 import "../body.css";
-import "./edit_del.css";
+
 const Body_delete = () => {
   return (
     <div>

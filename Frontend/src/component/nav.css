@@ -1,84 +1,94 @@
 /* nav bar vertival */
-  .container {
-    display: flex;
-    /* max-width: 1140px; */
-    /* display: flex; */
-
-
-  }
-
-
-  #hide_menubar {
-    margin: 2rem;
-    margin-left: 3rem;
-    display: none;
-    transition: all 1s ease;
-  
-  }
+.container {
+  display: flex;
+  /* max-width: 1140px; */
+  /* display: flex; */
+}
+@media screen and (max-width: 800px) {
   .vertical-navbar {
-
-    flex-basis: 20%;
-    background-color: rgb(123, 154, 247);
-    padding: 0.7rem;
-    height: 100vh;
-    /* overflow-y: auto; */
+    display: none;
   }
-  .vertical-navbar a {
+  #hide_menubar {
     display: block;
-    color: #fafafae4;
-    padding: 0.3rem 1rem;
-    font-size: 1.1rem;
-    margin: 0.8rem;
   }
+}
+#hide_menubar {
+  margin: 2rem;
+  margin-left: 3rem;
+  display: none;
+  transition: all 1s ease;
+}
+.vertical-navbar {
+  flex-basis: 25%;
+  background-color: rgb(123, 154, 247);
+  padding: 0.7rem;
+  /* height: 100vh; */
+  /* overflow-y: auto; */
+}
+.vertical-navbar a {
+  display: block;
+  color: #fafafae4;
+  padding: 0.3rem 1rem;
+  font-size: 1.1rem;
+  margin: 0.8rem;
+}
 
-  .vertical-navbar-active {
-    background-color: rgb(114, 135, 240);
-    color: white;
-    border-radius: 0.5rem;
-  }
+.vertical-navbar-active {
+  background-color: rgb(114, 135, 240);
+  color: white;
+  border-radius: 0.5rem;
+}
 
-  /* user profile in nav */
-  .name-profile {
-    color: white;
-    font-size: 1.6rem;
-  }
+/* user profile in nav */
+.name-profile {
+  color: white;
+  font-size: 1.32rem;
+}
 
-  #mail-profile {
-    color: #ffffffbf;
-    font-size: 90%;
-  }
-  
-  .user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    flex-direction: column;
-  }
-  
-  .user-profile img {
-    width: 14rem;
-    height: 13rem;
-    border-radius: 50%;
-    padding: 1rem;
-  }
-  
+#mail-profile {
+  color: #ffffffbf;
+  font-size: 90%;
+}
 
-#top-nav-bar{
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+.user-profile img {
+  /* border: black 0.1rem solid; */
+  width: 12rem;
+  height: 11rem;
+  border-radius: 2rem;
+  /* padding: 1rem; */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.413);
+  margin-bottom: 1rem;
+}
+
+#top-nav-bar {
   display: flex;
 }
-#top-nav-bar > *{
+#top-nav-bar > * {
   margin: 1rem;
- }
+}
 
-#menu-icon{
+#menu-icon {
   position: absolute;
- 
 }
 
 #name-com {
   color: white;
   font-size: 1.4rem;
-  text-align:  center;
+  text-align: center;
   /* margin: 1rem; */
+}
+
+#logout_button {
+  cursor: pointer;
+  display: block;
+  margin-top: auto; /* Pushes the button to the bottom */
+  margin-left: 1rem; /* Adjust the margin as needed */
 }

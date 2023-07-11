@@ -29,14 +29,19 @@ const VerticalNavbar = () => {
   const DisplayNav = () => {
     let main_nav = document.getElementsByClassName("vertical-navbar")[0];
     let hide_nav = document.getElementById("hide_menubar");
-
+    let content = document.getElementsByClassName("content")[0];
     if (isNavDisabled) {
       main_nav.style.display = "block";
       hide_nav.style.display = "none";
       // contained.style["flex-basis"] =
+      content.style.marginLeft = '18rem';
+
+
     } else {
       main_nav.style.display = "none";
       hide_nav.style.display = "block";
+      content.style.marginLeft = '0rem';
+
     }
     setNavDisabled(!isNavDisabled);
   };
@@ -66,8 +71,14 @@ const VerticalNavbar = () => {
             alt="User Profile"
           />
           <AuthenticatedTemplate>
-            <div className="name-profile"> {activeAccount ? activeAccount.name : "none"} </div>
-            <div id="mail-profile"> {activeAccount ? activeAccount.username : "none"}</div>
+            <div className="name-profile">
+              {" "}
+              {activeAccount ? activeAccount.name : "none"}{" "}
+            </div>
+            <div id="mail-profile">
+              {" "}
+              {activeAccount ? activeAccount.username : "none"}
+            </div>
           </AuthenticatedTemplate>
         </div>
         <NavLink
@@ -96,7 +107,7 @@ const VerticalNavbar = () => {
           Log out
         </a> */}
         <a onClick={handleLogoutRedirect} id="logout_button">
-          Log out 
+          Log out
         </a>
       </nav>
     </>

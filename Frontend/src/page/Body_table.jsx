@@ -90,7 +90,7 @@ const Table_data = () => {
     window.location.reload();
   };
   const Hide_popup = () => {
-    sort_input();
+    
 
     let create_popup = document.getElementsByClassName(
       "container_form_popup_create"

@@ -14,31 +14,17 @@ import { ConvertDateTimeFormat, GetCurrentTime } from "../services/Time";
 import Swal from "sweetalert2";
 import Status_icon from "./Status_icon";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import SearchBar from "../component/SearchBar";
+import { useMsal } from "@azure/msal-react";
+import FilterStaus from "../component/FilterStaus";
+
 // import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SearchBar from "../component/SearchBar";
-import { useMsal } from "@azure/msal-react";
-// import TableDataFirst from "../component/TableData_first";
-
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableContainer,
-//   TableHead,
-//   TableRow,
-//   Paper,
-// } from "@mui/material";
-
-// import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -54,7 +40,6 @@ import {
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import FilterStaus from "../component/FilterStaus";
 
 // input data that use in bady table to sent input to api ex. create data edit data
 // data that show in table view
@@ -111,7 +96,6 @@ const Table_data = () => {
 
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [isDuplicate, setDuplicate] = useState(false);
-  const [StatusShow, setStatusShow] = React.useState("both");
 
   const Clear_popup = () => {
     let create_popup = document.getElementsByClassName(
@@ -148,10 +132,6 @@ const Table_data = () => {
       ...input, // another field that you is inputed(old)
       [name]: value,
     });
-    // console.log(e.target.name);
-    // console.log(isDuplicate);
-    // console.log(input);
-    // console.log(input.AccountID.trim())
   };
   // function that use in use effect when user insite to this page
   const [result, setResult] = useState([]);
@@ -254,10 +234,7 @@ const Table_data = () => {
   const [sortedColumn, setSortedColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
   const [expandedRow, setExpandedRow] = useState(null);
-  const [accountID, setAccount_ID] = useState(" ⌃˅ AccountID");
-  const [customerCode, setCustomerCode] = useState("˅ CustomerCode");
-  const [companyName, setAccount_name] = useState("˅ CompanyName");
-  const [email, setEmail] = useState("˅ Email");
+
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
     // fontWeight: 'bold', // Specify the desired font weight
@@ -360,6 +337,7 @@ const Table_data = () => {
                 <TableCell
                   id="col_main"
                   onClick={() => handleSort("BillingCharge")}
+                  style={tableCellStyle}
                 >
                   Billing Charge (%) {getSortIcon("BillingCharge")}
                 </TableCell>
@@ -372,71 +350,6 @@ const Table_data = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
-            {/* <TableBody>
-              {result.map((row) => (
-                <React.Fragment key={row.id}>
-                  <TableRow>
-                    <TableCell>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => handleExpandRow(row.id)}
-                      >
-                        {expandedRow === row.id ? (
-                          <KeyboardArrowUpIcon />
-                        ) : (
-                          <KeyboardArrowDownIcon />
-                        )}
-                      </IconButton>
-                    </TableCell>
-                    <TableCell>{row.AccountID}</TableCell>
-                    <TableCell>{row.CustomerCode}</TableCell>
-                    <TableCell>{row.CompanyName}</TableCell>
-                    <TableCell>{row.Email}</TableCell>
-                    <TableCell>{row.BillingCharge}</TableCell>
-                    <TableCell>{row.AccountStatus}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell
-                      style={{ paddingBottom: 0, paddingTop: 0 }}
-                      colSpan={7}
-                    >
-                      <Collapse
-                        in={expandedRow === row.id}
-                        timeout="auto"
-                        unmountOnExit
-                      >
-                        <Box sx={{ margin: 1 }}>
-                          <Typography variant="h6" gutterBottom component="div">
-                            Additional Details
-                          </Typography>
-                          <ul>
-                            <li>CompanyAddress1: {row.CompanyAddress1}</li>
-                            <li>CompanyAddress2: {row.CompanyAddress2}</li>
-                            <li>ContactPerson: {row.ContactPerson}</li>
-                            <li>Mobile: {row.Mobile}</li>
-                            <li>TaxID: {row.TaxID}</li>
-                            <li>BillingCharge: {row.BillingCharge}</li>
-                            <li>
-                              DateModify:{" "}
-                              {ConvertDateTimeFormat(row.DateModify)}
-
-
-                            </li>
-                            <li>ModifiedBy: {row.ModifiedBy}</li>
-                            <li>
-                              DateCreated:{" "}
-                              {ConvertDateTimeFormat(row.DateCreated)}
-                            </li>
-                            <li>CreatedBy: {row.CreatedBy}</li>
-                          </ul>
-                        </Box>
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
-                </React.Fragment>
-              ))}
-            </TableBody> */}
 
             <TableBody>
               {sortedResult.map((row) => (
@@ -484,7 +397,10 @@ const Table_data = () => {
                         timeout="auto"
                         unmountOnExit
                       >
-                        <Box id="table_row" sx={{ margin: "1rem",marginLeft:"1.5rem" }}>
+                        <Box
+                          id="table_row"
+                          sx={{ margin: "1rem", marginLeft: "1.5rem" }}
+                        >
                           <Typography variant="h5" gutterBottom component="div">
                             Additional Details
                           </Typography>
@@ -492,48 +408,84 @@ const Table_data = () => {
                             <Table>
                               <TableBody>
                                 <TableRow>
-                                  <TableCell>CompanyAddress1:</TableCell>
-                                  <TableCell>{row.CompanyAddress1}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    CompanyAddress1:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.CompanyAddress1}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>CompanyAddress2:</TableCell>
-                                  <TableCell>{row.CompanyAddress2}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    CompanyAddress2:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.CompanyAddress2}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>ContactPerson:</TableCell>
-                                  <TableCell>{row.ContactPerson}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    ContactPerson:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.ContactPerson}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Mobile:</TableCell>
-                                  <TableCell>{row.Mobile}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    Mobile:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.Mobile}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>TaxID:</TableCell>
-                                  <TableCell>{row.TaxID}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    TaxID:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.TaxID}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>BillingCharge:</TableCell>
-                                  <TableCell>{row.BillingCharge}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    BillingCharge:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.BillingCharge}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>DateModify:</TableCell>
-                                  <TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    DateModify:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
                                     {ConvertDateTimeFormat(row.DateModify)}
                                   </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>ModifiedBy:</TableCell>
-                                  <TableCell>{row.ModifiedBy}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    ModifiedBy:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.ModifiedBy}
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>DateCreated:</TableCell>
-                                  <TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    DateCreated:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
                                     {ConvertDateTimeFormat(row.DateCreated)}
                                   </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>CreatedBy:</TableCell>
-                                  <TableCell>{row.CreatedBy}</TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    CreatedBy:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.CreatedBy}
+                                  </TableCell>
                                 </TableRow>
                               </TableBody>
                             </Table>
@@ -547,64 +499,6 @@ const Table_data = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
-        {/* <table className="order-list">
-          <thead>
-            <tr>
-              <th>AccountID</th>
-              <th>CostomerCode</th>
-              <th>CompanyName</th>
-
-              <th>Email</th>
-              <th>Billing Charge (%)</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
- 
-            {result.map((row) => (
-              <tr key={row.id}>
-                <td>{row.AccountID}</td>
-                <td>{row.CustomerCode}</td>
-                <td>{row.CompanyName}</td>
-                <td>{row.Email}</td>
-                <td>{row.BillingCharge}</td>
-                <td>
-                  <Status_icon account_status={Boolean(row.AccountStatus)} />
-                </td>
-
-                <td>
-                  <details className="descri">
-                    <summary
-                      data-open="▸ Show Less"
-                      data-close="▾ Show More"
-                    ></summary>
-                    <ul>
-                      <li>CompanyAddress1: {row.CompanyAddress1}</li>
-                      <li>CompanyAddress2: {row.CompanyAddress2}</li>
-                      <li>ContactPerson: {row.ContactPerson}</li>
-                      <li>Mobile: {row.Mobile}</li>
-                      <li>TaxID: {row.TaxID}</li>
-                      <li>BillingCharge: {row.BillingCharge}</li>
-                      <li>
-                        DateModify: {ConvertDateTimeFormat(row.DateModify)}
-                      </li>
-                      <li>ModifiedBy: {row.ModifiedBy}</li>
-
-                      <li>
-                        DateCreated: {ConvertDateTimeFormat(row.DateCreated)}
-                        <li>CreatedBy: {row.CreatedBy}</li>
-                      </li>
-                    </ul>
-                  </details>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> 
- */}
       </div>
 
       {/* Create data popup */}

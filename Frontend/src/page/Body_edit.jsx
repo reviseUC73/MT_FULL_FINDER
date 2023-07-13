@@ -23,9 +23,10 @@ import Button from "@mui/material/Button";
 import Status_icon from "./Status_icon";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import FilterStaus from "../component/FilterStaus";
 
 // selectin bar
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -34,6 +35,22 @@ import SearchBar from "../component/SearchBar";
 
 // az
 import { useMsal } from "@azure/msal-react";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Box,
+  Collapse,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const Body_edit = () => {
   const { instance } = useMsal();
@@ -258,83 +275,185 @@ const Body_edit = () => {
       },
       edit: {
         main: "#ed6c02",
-
         contrastText: "#fff",
       },
     },
   });
 
+  const [sortedColumn, setSortedColumn] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
+  const [expandedRow, setExpandedRow] = useState(null);
+
+  const tableCellStyle = {
+    fontFamily: "Kanit, sans-serif", // Specify the desired font family
+    fontWeight: 'bold', // Specify the desired font weight
+    fontSize: "1rem", // Specify the desired font size
+    
+  };
+  const getSortIcon = (column) => {
+    if (sortedColumn === column) {
+      return sortDirection === "asc" ? (
+        <KeyboardArrowUpIcon />
+      ) : (
+        <KeyboardArrowDownIcon />
+      );
+    }
+    return <KeyboardArrowUpIcon />;
+  };
+  const handleSort = (column) => {
+    if (column === sortedColumn) {
+      // If the same column is clicked again, toggle the sort direction
+      console.log(sortDirection + column);
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      // If a new column is clicked, set it as the sorted column with ascending order
+      setSortedColumn(column);
+      setSortDirection("asc");
+    }
+  };
+
+  const handleExpandRow = (AccountID) => {
+    // console.log(AccountID);
+    setExpandedRow(expandedRow === AccountID ? null : AccountID);
+  };
+
+  const sortedResult = [...result]; // Create a copy of the original result array
+  sortedResult.sort((a, b) => {
+    const valueA = a[sortedColumn];
+    const valueB = b[sortedColumn];
+
+    if (valueA < valueB) {
+      return sortDirection === "asc" ? -1 : 1;
+    }
+    if (valueA > valueB) {
+      return sortDirection === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
   return (
     <div>
       <div id="table_top">
         <div className="name_page"> Edit Data </div>
       </div>
       <SearchBar setResult={setResult} />
+      <FilterStaus setResult={setResult} />
 
-      <table className="order-list">
-        {/* Main colum */}
-        <thead>
-          <tr>
-            <th>AccountID</th>
-            <th>CostomerCode</th>
-            <th>CompanyName</th>
+      <table className="order-list-edit">
+        <TableContainer component={Paper}>
+          <Table className="order-list-edit">
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("AccountID")}
+                  style={tableCellStyle}
+                >
+                  AccountID {getSortIcon("AccountID")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("CustomerCode")}
+                  style={tableCellStyle}
+                >
+                  CustomerCode {getSortIcon("CustomerCode")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("CompanyName")}
+                  style={tableCellStyle}
+                >
+                  CompanyName {getSortIcon("CompanyName")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("Email")}
+                  style={tableCellStyle}
+                >
+                  Email {getSortIcon("Email")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("BillingCharge")}
+                  style={tableCellStyle}
+                >
+                  Billing Charge (%) {getSortIcon("BillingCharge")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("AccountStatus")}
+                  style={tableCellStyle}
+                >
+                  Status {getSortIcon("AccountStatus")}
+                </TableCell>
+                
+                <TableCell />
+              </TableRow>
+            </TableHead>
 
-            <th>Email</th>
-            <th>Billing Charge (%)</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        {/* Information each row */}
-        <tbody>
-          {/* row account 3 <api> */}
-          {result.map((row, index) => (
-            <tr key={index}>
-              {/* {console.log(row)} */}
-              <td>{row.AccountID}</td>
-              <td>{row.CustomerCode}</td>
-              <td>{row.CompanyName}</td>
-              <td>{row.Email}</td>
-              <td>{row.BillingCharge}</td>
-              <td>
-                <Status_icon account_status={Boolean(row.AccountStatus)} />
-              </td>
-              <td>
-                <Stack direction="row" spacing={2}>
-                  <ThemeProvider theme={theme}>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      startIcon={<EditIcon />}
-                      color="edit"
-                      onClick={() => Load_data(row)}
-                      disabled={editMode}
-                    >
-                      Edit
-                    </Button>
-                  </ThemeProvider>
+            <TableBody>
+              {sortedResult.map((row) => (
+                <React.Fragment key={row.AccountID}>
+                  <TableRow>
+                    <TableCell style={tableCellStyle}>
+                      {row.AccountID}
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.CustomerCode}
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.CompanyName}
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>{row.Email}</TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.BillingCharge}
+                    </TableCell>
+                    <TableCell>
+                      <Status_icon
+                        account_status={Boolean(row.AccountStatus)}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={2}>
+                        <ThemeProvider theme={theme}>
+                          <Button
+                            id="edit_button"
+                            variant="outlined"
+                            // size="small"
+                            startIcon={<EditIcon />}
+                            color="edit"
+                            onClick={() => Load_data(row)}
+                            disabled={editMode}
+                          >
+                            Edit
+                          </Button>
+                        </ThemeProvider>
 
-                  <ThemeProvider theme={theme}>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      startIcon={<DeleteIcon />}
-                      color="del"
-                      onClick={() => Delete_data(row.AccountID)}
-                      disabled={editMode}
-                    >
-                      Delete
-                    </Button>
-                  </ThemeProvider>
-                </Stack>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+                        <ThemeProvider theme={theme}>
+                          <Button
+                          id="del_button"
+                            variant="outlined"
+                            // size="medi"
+                            startIcon={<DeleteIcon />}
+                            color="del"
+                            onClick={() => Delete_data(row.AccountID)}
+                            disabled={editMode}
+                          >
+                            Delete
+                          </Button>
+                        </ThemeProvider>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow></TableRow>
+                </React.Fragment>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
       </table>
       <div class="container_form_popup_edit">
         <form onSubmit={(e) => Edit_data(e, input.AccountID)}>
-          {/* <!-- row 2 --> */}
           <div class="form-row">
             <div class="input-data">
               <input
@@ -361,7 +480,6 @@ const Body_edit = () => {
             </div>
           </div>
 
-          {/* <!-- row 3  --> */}
           <div class="form-row">
             <div class="input-data">
               <input
@@ -387,7 +505,6 @@ const Body_edit = () => {
             </div>
           </div>
 
-          {/* <!-- row 4  --> */}
           <div class="form-row">
             <div class="input-data">
               <input
@@ -415,7 +532,6 @@ const Body_edit = () => {
             </div>
           </div>
 
-          {/* <!-- row 5  --> */}
           <div class="form-row">
             <div class="input-data">
               <input
@@ -444,7 +560,6 @@ const Body_edit = () => {
             </div>
           </div>
 
-          {/* <!-- row 6  --> */}
           <div class="form-row">
             <div class="input-data">
               <SelectStatus />

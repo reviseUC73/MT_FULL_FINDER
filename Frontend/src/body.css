@@ -8,7 +8,6 @@
   margin-right: 2rem;
   margin-top: 1rem;
   border-radius: 1.2rem;
-
 }
 
 #group_bottom_popup {
@@ -35,10 +34,16 @@
   /* word-wrap: break-word;
   overflow-wrap: break-word; */
 }
+
+/* :nth-child(even)
 .order-list td {
-  /* border-spacing: 200px; */
   padding: 0.9rem;
   background-color: rgb(255, 255, 255);
+} */
+
+.order-list td :nth-child(even) {
+  padding: 0.9rem;
+  background-color: rgba(245, 245, 245, 0.593);
 }
 
 td {
@@ -48,10 +53,6 @@ td {
   text-align: left;
   font-size: 3.2rem;
   font-weight: bold;
-}
-
-.order-list tr:not(:last-child) {
-  /* margin-bottom: 20px; */
 }
 
 summary {
@@ -82,4 +83,17 @@ li {
 
 #overflowX {
   overflow-y: auto;
+}
+
+#col_main {
+  cursor: pointer;
+}
+
+#col_main :hover {
+  background-color: rgba(146, 163, 250, 0.688);
+  border-radius: 1rem;
+}
+
+.table_row {
+  background-color: aquamarine;
 }

@@ -9,6 +9,7 @@ import {
   UnauthenticatedTemplate,
   useMsal,
 } from "@azure/msal-react";
+
 const VerticalNavbar = () => {
   const { instance } = useMsal();
 

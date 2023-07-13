@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Status_icon({account_status}) {
-  console.log((account_status))
+  // console.log((account_status))
   if (account_status === true) 
     return (
       <>

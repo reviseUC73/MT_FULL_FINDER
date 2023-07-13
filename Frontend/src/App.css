@@ -12,6 +12,10 @@
   flex-basis: 100%;
   padding: 15px;
   overflow-x: auto;
+  margin-left: 18rem;
+  margin-right: 1rem;
+  
+
 }
 
 .container_auth {
@@ -23,12 +27,8 @@
   height: 100vh;
   background-color: rgb(123, 154, 247);
   /* box-sizing: border-box; */
-
 }
 
-*{
-
-
+* {
   box-sizing: border-box;
-
 }

@@ -5,7 +5,7 @@ export const AllInformation = async () => {
 
   try {
     const response = await axios.get(baseURL);
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (err) {
     return null;

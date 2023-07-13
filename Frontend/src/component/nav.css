@@ -1,6 +1,8 @@
 /* nav bar vertival */
 .container {
   display: flex;
+
+    
   /* max-width: 1140px; */
   /* display: flex; */
 }
@@ -19,10 +21,12 @@
   transition: all 1s ease;
 }
 .vertical-navbar {
+  position: fixed;
+
   flex-basis: 25%;
   background-color: rgb(123, 154, 247);
   padding: 0.7rem;
-  /* height: 100vh; */
+  height: 1000vh;
   /* overflow-y: auto; */
 }
 .vertical-navbar a {

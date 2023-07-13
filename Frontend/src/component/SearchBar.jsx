@@ -47,7 +47,7 @@ export default function SearchBar({ setResult }) {
     // <Container maxWidth="md" sx={{ mt: 5 }}>
     <Paper id="SearchBar"
       component="form"
-      sx={{ p: "2px 3px", display: "flex", alignItems: "center", width: 550 }}
+      sx={{ p: "2px 3px", display: "flex", alignItems: "center", width: "40rem" }}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}

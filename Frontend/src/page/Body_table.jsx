@@ -2,7 +2,6 @@ import React from "react";
 import "../body.css";
 import "../component/sel.css";
 import Button from "@mui/material/Button";
-import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import KeyboardHideIcon from "@mui/icons-material/KeyboardHide";
 import {
@@ -15,15 +14,33 @@ import { ConvertDateTimeFormat, GetCurrentTime } from "../services/Time";
 import Swal from "sweetalert2";
 import Status_icon from "./Status_icon";
 
-import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import SearchBar from "../component/SearchBar";
+import { useMsal } from "@azure/msal-react";
+import FilterStaus from "../component/FilterStaus";
+
+// import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SearchBar from "../component/SearchBar";
-import { useMsal } from "@azure/msal-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Box,
+  Collapse,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 // input data that use in bady table to sent input to api ex. create data edit data
 // data that show in table view
 const Table_data = () => {
@@ -34,7 +51,7 @@ const Table_data = () => {
   if (instance) {
     // bool or undefine
     activeAccount = instance.getActiveAccount();
-    console.log(activeAccount);
+    // console.log(activeAccount);
   }
   const [input, setInput] = useState({
     AccountID: "",
@@ -90,8 +107,6 @@ const Table_data = () => {
     window.location.reload();
   };
   const Hide_popup = () => {
-    sort_input();
-
     let create_popup = document.getElementsByClassName(
       "container_form_popup_create"
     )[0];
@@ -117,10 +132,6 @@ const Table_data = () => {
       ...input, // another field that you is inputed(old)
       [name]: value,
     });
-    // console.log(e.target.name);
-    // console.log(isDuplicate);
-    console.log(input);
-    // console.log(input.AccountID.trim())
   };
   // function that use in use effect when user insite to this page
   const [result, setResult] = useState([]);
@@ -220,6 +231,55 @@ const Table_data = () => {
     },
   });
 
+  const [sortedColumn, setSortedColumn] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
+  const [expandedRow, setExpandedRow] = useState(null);
+
+  const tableCellStyle = {
+    fontFamily: "Kanit, sans-serif", // Specify the desired font family
+    // fontWeight: 'bold', // Specify the desired font weight
+    fontSize: "1rem", // Specify the desired font size
+  };
+  const getSortIcon = (column) => {
+    if (sortedColumn === column) {
+      return sortDirection === "asc" ? (
+        <KeyboardArrowUpIcon />
+      ) : (
+        <KeyboardArrowDownIcon />
+      );
+    }
+    return <KeyboardArrowUpIcon />;
+  };
+  const handleSort = (column) => {
+    if (column === sortedColumn) {
+      // If the same column is clicked again, toggle the sort direction
+      console.log(sortDirection + column);
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      // If a new column is clicked, set it as the sorted column with ascending order
+      setSortedColumn(column);
+      setSortDirection("asc");
+    }
+  };
+
+  const handleExpandRow = (AccountID) => {
+    // console.log(AccountID);
+    setExpandedRow(expandedRow === AccountID ? null : AccountID);
+  };
+
+  const sortedResult = [...result]; // Create a copy of the original result array
+  sortedResult.sort((a, b) => {
+    const valueA = a[sortedColumn];
+    const valueB = b[sortedColumn];
+
+    if (valueA < valueB) {
+      return sortDirection === "asc" ? -1 : 1;
+    }
+    if (valueA > valueB) {
+      return sortDirection === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
   return (
     <div>
       <div id="table_top">
@@ -238,68 +298,209 @@ const Table_data = () => {
         </ThemeProvider>
       </div>
       <SearchBar setResult={setResult} />
-      {/* <Search_bar /> */}
+      <FilterStaus setResult={setResult} />
+
       <div id="overflowX">
-        <table className="order-list">
-          {/* Main colum */}
-          <thead>
-            <tr>
-              <th>AccountID</th>
-              <th>CostomerCode</th>
-              <th>CompanyName</th>
+        <TableContainer component={Paper}>
+          <Table className="order-list">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("AccountID")}
+                  style={tableCellStyle}
+                >
+                  AccountID {getSortIcon("AccountID")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("CustomerCode")}
+                  style={tableCellStyle}
+                >
+                  CustomerCode {getSortIcon("CustomerCode")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("CompanyName")}
+                  style={tableCellStyle}
+                >
+                  CompanyName {getSortIcon("CompanyName")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("Email")}
+                  style={tableCellStyle}
+                >
+                  Email {getSortIcon("Email")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("BillingCharge")}
+                  style={tableCellStyle}
+                >
+                  Billing Charge (%) {getSortIcon("BillingCharge")}
+                </TableCell>
+                <TableCell
+                  id="col_main"
+                  onClick={() => handleSort("AccountStatus")}
+                  style={tableCellStyle}
+                >
+                  Status {getSortIcon("AccountStatus")}
+                </TableCell>
+              </TableRow>
+            </TableHead>
 
-              <th>Email</th>
-              <th>Billing Charge (%)</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          {/* Information each row */}
-          <tbody>
-            {/* row account 3 <api> */}
-            {result.map((row) => (
-              <tr key={row.id}>
-                <td>{row.AccountID}</td>
-                <td>{row.CustomerCode}</td>
-                <td>{row.CompanyName}</td>
-                <td>{row.Email}</td>
-                <td>{row.BillingCharge}</td>
-                {/* <td>{row.AccountStatus}</td> */}
-                <td>
-                  <Status_icon account_status={Boolean(row.AccountStatus)} />
-                </td>
-
-                <td>
-                  <details className="descri">
-                    <summary
-                      data-open="▸ Show Less"
-                      data-close="▾ Show More"
-                    ></summary>
-                    <ul>
-                      <li>CompanyAddress1: {row.CompanyAddress1}</li>
-                      <li>CompanyAddress2: {row.CompanyAddress2}</li>
-                      <li>ContactPerson: {row.ContactPerson}</li>
-                      <li>Mobile: {row.Mobile}</li>
-                      <li>TaxID: {row.TaxID}</li>
-                      <li>BillingCharge: {row.BillingCharge}</li>
-                      <li>
-                        DateModify: {ConvertDateTimeFormat(row.DateModify)}
-                      </li>
-                      <li>ModifiedBy: {row.ModifiedBy}</li>
-
-                      <li>
-                        DateCreated: {ConvertDateTimeFormat(row.DateCreated)}
-                        <li>CreatedBy: {row.CreatedBy}</li>
-                      </li>
-                    </ul>
-                  </details>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            <TableBody>
+              {sortedResult.map((row) => (
+                <React.Fragment key={row.AccountID}>
+                  <TableRow>
+                    <TableCell>
+                      <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => handleExpandRow(row.AccountID)}
+                      >
+                        {expandedRow === row.AccountID ? (
+                          <KeyboardArrowUpIcon />
+                        ) : (
+                          <KeyboardArrowDownIcon />
+                        )}
+                      </IconButton>
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.AccountID}
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.CustomerCode}
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.CompanyName}
+                    </TableCell>
+                    <TableCell style={tableCellStyle}>{row.Email}</TableCell>
+                    <TableCell style={tableCellStyle}>
+                      {row.BillingCharge}
+                    </TableCell>
+                    <TableCell>
+                      <Status_icon
+                        account_status={Boolean(row.AccountStatus)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell
+                      style={{ paddingBottom: 0, paddingTop: 0 }}
+                      colSpan={7}
+                    >
+                      <Collapse
+                        in={expandedRow === row.AccountID}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        <Box
+                          id="table_row"
+                          sx={{ margin: "1rem", marginLeft: "1.5rem" }}
+                        >
+                          <Typography variant="h5" gutterBottom component="div">
+                            Additional Details
+                          </Typography>
+                          <TableContainer>
+                            <Table>
+                              <TableBody>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    CompanyAddress1:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.CompanyAddress1}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    CompanyAddress2:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.CompanyAddress2}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    ContactPerson:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.ContactPerson}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    Mobile:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.Mobile}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    TaxID:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.TaxID}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    BillingCharge:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.BillingCharge}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    DateModify:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {ConvertDateTimeFormat(row.DateModify)}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    ModifiedBy:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.ModifiedBy}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    DateCreated:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {ConvertDateTimeFormat(row.DateCreated)}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell style={tableCellStyle}>
+                                    CreatedBy:
+                                  </TableCell>
+                                  <TableCell style={tableCellStyle}>
+                                    {row.CreatedBy}
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Box>
+                      </Collapse>
+                    </TableCell>
+                  </TableRow>
+                </React.Fragment>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
+
       {/* Create data popup */}
       <div class="container_form_popup_create">
         {/* <IconButton id="close_form" name="details" onClick={Hide_popup}>

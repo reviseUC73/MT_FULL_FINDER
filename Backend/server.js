@@ -1,6 +1,6 @@
 // impoort
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -13,11 +13,11 @@ app.use(express.json()); // change json to javascript
 
 // My sql connection
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST ,
+  user: process.env.DB_USER   ,
+  password: process.env.DB_PASSWORD ,
   database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT , 
 });
 // Connecting to database
 db.connect((err) => {

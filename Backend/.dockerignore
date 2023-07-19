@@ -1,0 +1,4 @@
+node_modules
+.gitignore
+.simple_env
+.env

@@ -237,23 +237,35 @@ const Table_data = () => {
 
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
-    // fontWeight: 'bold', // Specify the desired font weight
-    fontSize: "1rem", // Specify the desired font size
+    fontSize: "0.8rem", // Specify the desired font size
+    padding: "0.6rem", // Specify the desired
+    maxWidth: "10rem",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    borderStyle: "border-box",
   };
   const getSortIcon = (column) => {
     if (sortedColumn === column) {
       return sortDirection === "asc" ? (
-        <KeyboardArrowUpIcon />
+        <IconButton size="small">
+          <KeyboardArrowUpIcon />
+        </IconButton>
       ) : (
-        <KeyboardArrowDownIcon />
+        <IconButton size="small">
+          <KeyboardArrowDownIcon />
+        </IconButton>
       );
     }
-    return <KeyboardArrowUpIcon />;
+    return (
+      <IconButton size="small">
+        <KeyboardArrowUpIcon />
+      </IconButton>
+    );
   };
   const handleSort = (column) => {
     if (column === sortedColumn) {
       // If the same column is clicked again, toggle the sort direction
-      console.log(sortDirection + column);
+      // console.log(sortDirection + column);
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       // If a new column is clicked, set it as the sorted column with ascending order
@@ -355,7 +367,7 @@ const Table_data = () => {
               {sortedResult.map((row) => (
                 <React.Fragment key={row.AccountID}>
                   <TableRow>
-                    <TableCell>
+                    <TableCell style={tableCellStyle}>
                       <IconButton
                         aria-label="expand row"
                         size="small"

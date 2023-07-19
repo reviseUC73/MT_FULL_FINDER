@@ -18,7 +18,7 @@ const VerticalNavbar = () => {
   if (instance) {
     // bool or undefine
     activeAccount = instance.getActiveAccount();
-    console.log(activeAccount);
+    // console.log(activeAccount);
   }
 
   const handleLogoutRedirect = () => {
@@ -37,7 +37,7 @@ const VerticalNavbar = () => {
       main_nav.style.display = "block";
       hide_nav.style.display = "none";
       // contained.style["flex-basis"] =
-      content.style.marginLeft = '18rem';
+      content.style.marginLeft = '14rem';
 
 
     } else {
@@ -53,7 +53,7 @@ const VerticalNavbar = () => {
     <>
       <div id="hide_menubar">
         <IconButton onClick={DisplayNav}>
-          <MenuIcon color="primary" fontSize="large" id="menu-icon" />
+          <MenuIcon color="primary"  id="menu-icon" />
         </IconButton>
       </div>
       <nav className="vertical-navbar">
@@ -62,7 +62,7 @@ const VerticalNavbar = () => {
             <IconButton onClick={DisplayNav}>
               <MenuIcon
                 color="action"
-                fontSize="large"
+         
                 name="detail"
                 id="menu-icon"
               />

@@ -58,7 +58,7 @@ td {
 }
 .name_page {
   text-align: left;
-  font-size: 3.2rem;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
@@ -101,3 +101,8 @@ li {
   border-radius: 1rem;
 }
 
+
+
+.css-1ex1afd-MuiTableCell-root{
+  padding: 0;
+}

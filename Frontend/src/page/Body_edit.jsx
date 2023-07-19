@@ -60,7 +60,7 @@ const Body_edit = () => {
   if (instance) {
     // bool or undefine
     activeAccount = instance.getActiveAccount();
-    console.log(activeAccount);
+    // console.log(activeAccount);
   }
 
   //base input
@@ -84,7 +84,7 @@ const Body_edit = () => {
 
   // change data selector dor get data
   const SelectChange = (event) => {
-    console.log(input.AccountStatus);
+    // console.log(input.AccountStatus);
     setInput({ ...input, AccountStatus: event.target.value });
     // console.log(input);
   };
@@ -125,7 +125,7 @@ const Body_edit = () => {
       });
 
       if (result.isConfirmed) {
-        console.log(account_id);
+        // console.log(account_id);
         try {
           const deleted = await DeleteInformation(account_id);
           if (deleted) {
@@ -167,7 +167,7 @@ const Body_edit = () => {
       [name]: value,
     });
     // console.log(ConvertDateTimeFormat(time));
-    console.log(input);
+    // console.log(input);
   };
 
   const Hide_popup = () => {
@@ -282,39 +282,43 @@ const Body_edit = () => {
 
   const [sortedColumn, setSortedColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
-  const [expandedRow, setExpandedRow] = useState(null);
 
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
-    fontWeight: 'bold', // Specify the desired font weight
-    fontSize: "1rem", // Specify the desired font size
-    
+    fontSize: "0.8rem", // Specify the desired font size
+    padding: "0.6rem", // Specify the desired
+    maxWidth: "10rem",
+    margin: "0.6rem", // Specify the desired
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    borderStyle: "border-box"
+
   };
   const getSortIcon = (column) => {
     if (sortedColumn === column) {
       return sortDirection === "asc" ? (
-        <KeyboardArrowUpIcon />
+        <IconButton size="small">
+          <KeyboardArrowUpIcon />
+        </IconButton>
       ) : (
-        <KeyboardArrowDownIcon />
+        <IconButton size="small">
+          <KeyboardArrowDownIcon />
+        </IconButton>
       );
     }
-    return <KeyboardArrowUpIcon />;
+    return (
+      <IconButton size="small">
+        <KeyboardArrowUpIcon />
+      </IconButton>
+    );
   };
   const handleSort = (column) => {
     if (column === sortedColumn) {
-      // If the same column is clicked again, toggle the sort direction
-      console.log(sortDirection + column);
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      // If a new column is clicked, set it as the sorted column with ascending order
       setSortedColumn(column);
       setSortDirection("asc");
     }
-  };
-
-  const handleExpandRow = (AccountID) => {
-    // console.log(AccountID);
-    setExpandedRow(expandedRow === AccountID ? null : AccountID);
   };
 
   const sortedResult = [...result]; // Create a copy of the original result array
@@ -385,7 +389,7 @@ const Body_edit = () => {
                 >
                   Status {getSortIcon("AccountStatus")}
                 </TableCell>
-                
+
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -418,28 +422,28 @@ const Body_edit = () => {
                           <Button
                             id="edit_button"
                             variant="outlined"
-                            // size="small"
+                            size="small"
                             startIcon={<EditIcon />}
                             color="edit"
                             onClick={() => Load_data(row)}
                             disabled={editMode}
-                          >
-                            Edit
-                          </Button>
+                            style={{ fontSize: '0.65rem' }}
+                            
+                          >Edit</Button>
                         </ThemeProvider>
 
                         <ThemeProvider theme={theme}>
                           <Button
-                          id="del_button"
+                            id="del_button"
                             variant="outlined"
+                            size="small"
                             // size="medi"
                             startIcon={<DeleteIcon />}
                             color="del"
                             onClick={() => Delete_data(row.AccountID)}
                             disabled={editMode}
-                          >
-                            Delete
-                          </Button>
+                            style={{ fontSize: '0.65rem' }}
+                          >Delete</Button>
                         </ThemeProvider>
                       </Stack>
                     </TableCell>
@@ -450,7 +454,6 @@ const Body_edit = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
       </table>
       <div class="container_form_popup_edit">
         <form onSubmit={(e) => Edit_data(e, input.AccountID)}>

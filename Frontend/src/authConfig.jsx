@@ -11,7 +11,9 @@ export const msalConfig = {
     clientId: "79486c46-bd6a-4e96-bae4-ddc680b0c84d", // This is the ONLY mandatory field that you need to supply.
     authority:
       "https://login.microsoftonline.com/cd07849c-ef2d-45be-ad2b-3047d483f8d0", // Defaults to "https://login.microsoftonline.com/common"
-    redirectUri: "/", // Points to window.location.origin. You must register this URI on Azure Portal/App Registration.
+    // redirectUri: "/", // Points to window.location.origin. You must register this URI on Azure Portal/App Registration.
+    redirectUri: window.location.origin, // Points to window.location.origin. You must register this URI on Azure Portal/App Registration.
+    
     postLogoutRedirectUri: "/login", // Indicates the page to navigate after logout.
     navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
   },
@@ -53,7 +55,7 @@ export const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-  scopes: [],
+  scopes: ['openid' ,'profile'],
 };
 
 /**

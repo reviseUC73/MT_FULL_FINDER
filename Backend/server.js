@@ -1,6 +1,6 @@
 // impoort
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -18,6 +18,7 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
+  // socketPath: "/var/run/mysqld/mysqld.sock",
 });
 // Connecting to database
 db.connect((err) => {
@@ -263,5 +264,5 @@ app.post("/check-duplicate", (req, res) => {
 // Listen server
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`Server is running on port ${process.env.SERVER_PORT}`);
-  console.log(`localhost:3002/read`);
+  // console.log(`localhost:3002/read`); 
 });

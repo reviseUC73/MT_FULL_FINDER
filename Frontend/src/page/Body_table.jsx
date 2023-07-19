@@ -237,8 +237,12 @@ const Table_data = () => {
 
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
-    // fontWeight: 'bold', // Specify the desired font weight
-    fontSize: "0.9rem", // Specify the desired font size
+    fontSize: "0.8rem", // Specify the desired font size
+    padding: "0.6rem", // Specify the desired
+    maxWidth: "10rem",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    borderStyle: "border-box",
   };
   const getSortIcon = (column) => {
     if (sortedColumn === column) {
@@ -254,7 +258,7 @@ const Table_data = () => {
     }
     return (
       <IconButton size="small">
-        <KeyboardArrowUpIcon/>
+        <KeyboardArrowUpIcon />
       </IconButton>
     );
   };
@@ -363,7 +367,7 @@ const Table_data = () => {
               {sortedResult.map((row) => (
                 <React.Fragment key={row.AccountID}>
                   <TableRow>
-                    <TableCell>
+                    <TableCell style={tableCellStyle}>
                       <IconButton
                         aria-label="expand row"
                         size="small"

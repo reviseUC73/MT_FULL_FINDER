@@ -285,7 +285,14 @@ const Body_edit = () => {
 
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
-    fontSize: "0.9rem", // Specify the desired font size
+    fontSize: "0.8rem", // Specify the desired font size
+    padding: "0.6rem", // Specify the desired
+    maxWidth: "10rem",
+    margin: "0.6rem", // Specify the desired
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    borderStyle: "border-box"
+
   };
   const getSortIcon = (column) => {
     if (sortedColumn === column) {
@@ -313,7 +320,6 @@ const Body_edit = () => {
       setSortDirection("asc");
     }
   };
-
 
   const sortedResult = [...result]; // Create a copy of the original result array
   sortedResult.sort((a, b) => {
@@ -416,30 +422,28 @@ const Body_edit = () => {
                           <Button
                             id="edit_button"
                             variant="outlined"
-                            // size="small"
+                            size="small"
                             startIcon={<EditIcon />}
                             color="edit"
                             onClick={() => Load_data(row)}
                             disabled={editMode}
-                          >
-                            Edit
-                          </Button>
+                            style={{ fontSize: '0.65rem' }}
+                            
+                          >Edit</Button>
                         </ThemeProvider>
 
                         <ThemeProvider theme={theme}>
                           <Button
                             id="del_button"
                             variant="outlined"
-                            // size="small"
-
+                            size="small"
                             // size="medi"
                             startIcon={<DeleteIcon />}
                             color="del"
                             onClick={() => Delete_data(row.AccountID)}
                             disabled={editMode}
-                          >
-                            Delete
-                          </Button>
+                            style={{ fontSize: '0.65rem' }}
+                          >Delete</Button>
                         </ThemeProvider>
                       </Stack>
                     </TableCell>

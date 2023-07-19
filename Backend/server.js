@@ -13,11 +13,12 @@ app.use(express.json()); // change json to javascript
 
 // My sql connection
 const db = mysql.createConnection({
-  host: process.env.DB_HOST ,
-  user: process.env.DB_USER   ,
-  password: process.env.DB_PASSWORD ,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT , 
+  port: process.env.DB_PORT,
+  // socketPath: "/var/run/mysqld/mysqld.sock",
 });
 // Connecting to database
 db.connect((err) => {
@@ -263,5 +264,5 @@ app.post("/check-duplicate", (req, res) => {
 // Listen server
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`Server is running on port ${process.env.SERVER_PORT}`);
-  console.log(`localhost:3002/read`);
+  // console.log(`localhost:3002/read`); 
 });

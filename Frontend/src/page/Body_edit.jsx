@@ -282,40 +282,38 @@ const Body_edit = () => {
 
   const [sortedColumn, setSortedColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
-  const [expandedRow, setExpandedRow] = useState(null);
 
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
-    fontWeight: 'bold', // Specify the desired font weight
-    fontSize: "1rem", // Specify the desired font size
-    
+    fontSize: "0.9rem", // Specify the desired font size
   };
   const getSortIcon = (column) => {
     if (sortedColumn === column) {
       return sortDirection === "asc" ? (
-        <KeyboardArrowUpIcon />
+        <IconButton size="small">
+          <KeyboardArrowUpIcon />
+        </IconButton>
       ) : (
-        <KeyboardArrowDownIcon />
+        <IconButton size="small">
+          <KeyboardArrowDownIcon />
+        </IconButton>
       );
     }
-    return <KeyboardArrowUpIcon />;
+    return (
+      <IconButton size="small">
+        <KeyboardArrowUpIcon />
+      </IconButton>
+    );
   };
   const handleSort = (column) => {
     if (column === sortedColumn) {
-      // If the same column is clicked again, toggle the sort direction
-      // console.log(sortDirection + column);
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      // If a new column is clicked, set it as the sorted column with ascending order
       setSortedColumn(column);
       setSortDirection("asc");
     }
   };
 
-  const handleExpandRow = (AccountID) => {
-    // console.log(AccountID);
-    setExpandedRow(expandedRow === AccountID ? null : AccountID);
-  };
 
   const sortedResult = [...result]; // Create a copy of the original result array
   sortedResult.sort((a, b) => {
@@ -385,7 +383,7 @@ const Body_edit = () => {
                 >
                   Status {getSortIcon("AccountStatus")}
                 </TableCell>
-                
+
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -430,8 +428,10 @@ const Body_edit = () => {
 
                         <ThemeProvider theme={theme}>
                           <Button
-                          id="del_button"
+                            id="del_button"
                             variant="outlined"
+                            // size="small"
+
                             // size="medi"
                             startIcon={<DeleteIcon />}
                             color="del"
@@ -450,7 +450,6 @@ const Body_edit = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
       </table>
       <div class="container_form_popup_edit">
         <form onSubmit={(e) => Edit_data(e, input.AccountID)}>

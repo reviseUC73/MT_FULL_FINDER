@@ -2,9 +2,7 @@ FROM node:20.4.0-slim
 
 WORKDIR /app
 
-
 COPY package*.json ./
-
 
 # ENV PATH /app/node_modules/.bin:SPATH
 
@@ -15,5 +13,4 @@ COPY server.js ./
 EXPOSE 3000
 
 CMD ["npm","run","dev"]
-
 

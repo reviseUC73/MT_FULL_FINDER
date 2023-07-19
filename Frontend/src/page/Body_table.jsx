@@ -238,17 +238,25 @@ const Table_data = () => {
   const tableCellStyle = {
     fontFamily: "Kanit, sans-serif", // Specify the desired font family
     // fontWeight: 'bold', // Specify the desired font weight
-    fontSize: "1rem", // Specify the desired font size
+    fontSize: "0.9rem", // Specify the desired font size
   };
   const getSortIcon = (column) => {
     if (sortedColumn === column) {
       return sortDirection === "asc" ? (
-        <KeyboardArrowUpIcon />
+        <IconButton size="small">
+          <KeyboardArrowUpIcon />
+        </IconButton>
       ) : (
-        <KeyboardArrowDownIcon />
+        <IconButton size="small">
+          <KeyboardArrowDownIcon />
+        </IconButton>
       );
     }
-    return <KeyboardArrowUpIcon />;
+    return (
+      <IconButton size="small">
+        <KeyboardArrowUpIcon/>
+      </IconButton>
+    );
   };
   const handleSort = (column) => {
     if (column === sortedColumn) {

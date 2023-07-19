@@ -18,7 +18,7 @@ const VerticalNavbar = () => {
   if (instance) {
     // bool or undefine
     activeAccount = instance.getActiveAccount();
-    console.log(activeAccount);
+    // console.log(activeAccount);
   }
 
   const handleLogoutRedirect = () => {

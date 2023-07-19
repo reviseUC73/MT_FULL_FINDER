@@ -18,11 +18,10 @@ body {
   object-fit: cover;
   min-width: 5rem;
   /* max-width: calc(50% - 0vmin); */
-  max-width: 70%;
+  max-width: 100%;
 }
 
 .container_auth {
-
   /* overflow: auto; */
   display: flex;
   justify-content: center;
@@ -38,7 +37,7 @@ body {
   width: 30rem;
   /* margin-top: 10rem; */
   /* margin: 2rem; */
-  padding: 2rem;
+  padding: 3rem;
   background-color: rgb(255, 255, 255);
   backdrop-filter: blur(3rem) !important;
   border-radius: 10px;
@@ -48,10 +47,11 @@ body {
 }
 
 #auth_topic {
+  font-size: 4rem;
   text-align: center;
   margin-bottom: 1.5rem;
 
-  font-size: calc(60% + 4vmin);
+  font-size: calc(70% + 6vmin);
 
   color: #333;
 
@@ -138,5 +138,3 @@ body {
 
   transition: color 0.2s ease-in-out;
 }
-
-

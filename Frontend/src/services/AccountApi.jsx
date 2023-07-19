@@ -1,7 +1,14 @@
 import axios from "axios";
-let port = 3002;
+
+
+// require("dotenv").config(); // Load environment variables from .env file
+
+const port = 3000;
+
+const host = "10.200.114.20"
+// const host = "localhost"
 export const AllInformation = async () => {
-  const baseURL = `http://localhost:${port}/read`;
+  const baseURL = `http://${host}:${port}/read`;
 
   try {
     const response = await axios.get(baseURL);
@@ -14,7 +21,7 @@ export const AllInformation = async () => {
 
 // Function to check for duplicate data
 export const CheckDuplicateData = async (data) => {
-  const duplicateURL = `http://localhost:${port}/check-duplicate`;
+  const duplicateURL = `http://${host}:${port}/check-duplicate`;
   const dataFormat = JSON.stringify(data);
 
   try {
@@ -35,7 +42,7 @@ export const CheckDuplicateData = async (data) => {
 export const CreateInformation = async (data) => {
   // Define the data to be sent in the request body
 
-  const baseURL = `http://localhost:${port}/create`;
+  const baseURL = `http://${host}:${port}/create`;
   var data_format = JSON.stringify(data);
 
   if (!data.AccountID || !data.CustomerCode || !data.CompanyName) {
@@ -64,7 +71,7 @@ export const CreateInformation = async (data) => {
 };
 
 export const EditInformation = async (user_id, data) => {
-  const baseURL = `http://localhost:${port}/edit/${user_id}`;
+  const baseURL = `http://${host}:${port}/edit/${user_id}`;
   var data_format = JSON.stringify(data);
   try {
     // Send the PUT request
@@ -86,7 +93,7 @@ export const EditInformation = async (user_id, data) => {
 };
 
 export const DeleteInformation = async (user_id) => {
-  const baseURL = `http://localhost:${port}/delete/${user_id}`;
+  const baseURL = `http://${host}:${port}/delete/${user_id}`;
   try {
     const response = await axios.delete(baseURL);
     console.log("API response:", response.status, response.data);

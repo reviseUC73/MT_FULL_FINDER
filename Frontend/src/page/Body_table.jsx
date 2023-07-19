@@ -253,7 +253,7 @@ const Table_data = () => {
   const handleSort = (column) => {
     if (column === sortedColumn) {
       // If the same column is clicked again, toggle the sort direction
-      console.log(sortDirection + column);
+      // console.log(sortDirection + column);
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       // If a new column is clicked, set it as the sorted column with ascending order

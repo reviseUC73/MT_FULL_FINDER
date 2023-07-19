@@ -60,7 +60,7 @@ const Body_edit = () => {
   if (instance) {
     // bool or undefine
     activeAccount = instance.getActiveAccount();
-    console.log(activeAccount);
+    // console.log(activeAccount);
   }
 
   //base input
@@ -84,7 +84,7 @@ const Body_edit = () => {
 
   // change data selector dor get data
   const SelectChange = (event) => {
-    console.log(input.AccountStatus);
+    // console.log(input.AccountStatus);
     setInput({ ...input, AccountStatus: event.target.value });
     // console.log(input);
   };
@@ -125,7 +125,7 @@ const Body_edit = () => {
       });
 
       if (result.isConfirmed) {
-        console.log(account_id);
+        // console.log(account_id);
         try {
           const deleted = await DeleteInformation(account_id);
           if (deleted) {
@@ -167,7 +167,7 @@ const Body_edit = () => {
       [name]: value,
     });
     // console.log(ConvertDateTimeFormat(time));
-    console.log(input);
+    // console.log(input);
   };
 
   const Hide_popup = () => {
@@ -303,7 +303,7 @@ const Body_edit = () => {
   const handleSort = (column) => {
     if (column === sortedColumn) {
       // If the same column is clicked again, toggle the sort direction
-      console.log(sortDirection + column);
+      // console.log(sortDirection + column);
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       // If a new column is clicked, set it as the sorted column with ascending order

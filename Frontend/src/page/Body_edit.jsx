@@ -455,10 +455,10 @@ const Body_edit = () => {
           </Table>
         </TableContainer>
       </table>
-      <div class="container_form_popup_edit">
+      <div className="container_form_popup_edit">
         <form onSubmit={(e) => Edit_data(e, input.AccountID)}>
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 required
@@ -466,10 +466,10 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.CompanyName}
               />
-              <div class="underline"></div>
-              <label for="">Company Name</label>
+              <div className="underline"></div>
+              <label >Company Name</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="text"
                 required
@@ -478,13 +478,13 @@ const Body_edit = () => {
                 value={input.ContactPerson}
               />
 
-              <div class="underline"></div>
+              <div className="underline"></div>
               <label>Contact Person</label>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 required
@@ -492,10 +492,10 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.CompanyAddress1}
               />
-              <div class="underline"></div>
-              <label for="">Company Address 1</label>
+              <div className="underline"></div>
+              <label >Company Address 1</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="text"
                 required
@@ -503,13 +503,13 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.CompanyAddress2}
               />
-              <div class="underline"></div>
-              <label for="">Company Address 2</label>
+              <div className="underline"></div>
+              <label >Company Address 2</label>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="email"
                 required
@@ -517,11 +517,11 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.Email}
               />
-              <div class="underline"></div>
+              <div className="underline"></div>
 
-              <label for="">Email Address</label>
+              <label >Email Address</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="tel"
                 required
@@ -530,13 +530,13 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.Mobile}
               />
-              <div class="underline"></div>
+              <div className="underline"></div>
               <label>Mobile Number</label>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 name="TaxID"
@@ -544,11 +544,11 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.TaxID}
               />
-              <div class="underline"></div>
+              <div className="underline"></div>
 
               <label>Tax ID</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="number"
                 min="0"
@@ -558,13 +558,13 @@ const Body_edit = () => {
                 onChange={handleChange}
                 value={input.BillingCharge}
               />
-              <div class="underline"></div>
+              <div className="underline"></div>
               <label>Billing Charge %</label>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <SelectStatus />
             </div>
           </div>

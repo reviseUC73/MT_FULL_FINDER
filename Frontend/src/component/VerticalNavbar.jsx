@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { IconButton } from "@mui/material";
 
+
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
@@ -12,7 +13,7 @@ import {
 
 const VerticalNavbar = () => {
   const { instance } = useMsal();
-
+  
   let activeAccount = "error login";
 
   if (instance) {
@@ -84,6 +85,8 @@ const VerticalNavbar = () => {
             </div>
           </AuthenticatedTemplate>
         </div>
+        
+
         <NavLink
           end
           to="/"

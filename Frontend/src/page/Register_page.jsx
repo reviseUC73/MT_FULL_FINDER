@@ -2,8 +2,8 @@ import React from "react";
 import "./Login.css";
 function Register_page() {
   return (
-    <div class="form-container_auth" id="resgister-form">
-      {/* <div class="form-container_auth" id="resgister-form"  style={{display : 'none'}}> */}
+    <div className="form-container_auth" id="resgister-form">
+      {/* <div className="form-container_auth" id="resgister-form"  style={{display : 'none'}}> */}
 
       <h1 id="auth_topic">Register</h1>
       <img

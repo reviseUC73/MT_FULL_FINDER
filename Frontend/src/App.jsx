@@ -1,5 +1,5 @@
 import "./App.css";
-
+// import dotenv from 'dotenv';
 import {
   MsalProvider,
   AuthenticatedTemplate,
@@ -24,8 +24,8 @@ import { useEffect } from "react";
 import Page404auth from "./page/Page404auth";
 // import Login from "./page/Login_page.jsx";
 // import Register_page from "./page/Register_page";
-
 function App({ instance }) {
+  // dotenv.config();
   const currentPath = window.location.pathname;
   const verify_path = ["/", "/edit"];
   const verify_signin = ["/", "/login"];
@@ -44,6 +44,7 @@ function App({ instance }) {
       <AuthenticatedTemplate>
         {path_check ? (
           <div className="container">
+            
             <VerticalNavbar />
 
             {/* {path_check && <VerticalNavbar />} */}
@@ -66,8 +67,10 @@ function App({ instance }) {
           <div class="container_auth">
             <Routes>
               {/* <Route path="/login" element={<Login />} /> */} {/* )} */}
+
               <Route path="/login" element={<Login_azure />} />
               <Route path="/" element={<Login_azure />} />
+              
               {/* <Route path="/register" element={<Register_page />} /> */}
               {/* <Route
               path="/"

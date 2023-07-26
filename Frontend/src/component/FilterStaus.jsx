@@ -13,7 +13,7 @@ export default function FilterStaus({ setResult }) {
   }, [StatusShow]);
 
   const [advance, setAdvance] = useState(false);
-  const [color_advance, setColor_Advance] = useState('#7687FD');
+  const [color_advance, setColor_Advance] = useState("#7687FD");
 
   function filterStaus(data, key) {
     if (key === "both") {
@@ -71,16 +71,19 @@ export default function FilterStaus({ setResult }) {
             // hidden={true}
           >
             <FormControlLabel
+              sx={{ color: "#414141" }}
               value="both"
               control={<Radio />}
               label="Both"
             />
             <FormControlLabel
+              sx={{ color: "#414141" }}
               value="active"
               control={<Radio />}
               label="Active"
             />
             <FormControlLabel
+              sx={{ color: "#414141" }}
               value="non-active"
               control={<Radio />}
               label="Deactivate"

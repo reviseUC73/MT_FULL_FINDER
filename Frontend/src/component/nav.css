@@ -6,14 +6,14 @@
   /* max-width: 1140px; */
   /* display: flex; */
 }
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
   .vertical-navbar {
     display: none;
   }
   #hide_menubar {
     display: block;
   }
-}
+} */
 #hide_menubar {
   margin: 1.2rem;
   /* margin-left: 3rem; */

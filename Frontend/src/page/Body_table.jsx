@@ -295,7 +295,7 @@ const Table_data = () => {
   return (
     <div>
       <div id="table_top">
-        <div class="name_page"> Table </div>
+        <div className="name_page"> Table </div>
         <ThemeProvider theme={theme}>
           <Button
             id="create_bottom"
@@ -514,14 +514,14 @@ const Table_data = () => {
       </div>
 
       {/* Create data popup */}
-      <div class="container_form_popup_create">
+      <div className="container_form_popup_create">
         {/* <IconButton id="close_form" name="details" onClick={Hide_popup}>
           <KeyboardHideIcon color="disabled" />
         </IconButton> */}
         <form onSubmit={OnSubmit}>
           {/* <!-- row 1 --> */}
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 required
@@ -529,10 +529,10 @@ const Table_data = () => {
                 onChange={handleChange}
                 id={isDuplicate ? "dupicate" : ""}
               />
-              <div class="underline"></div>
-              <label for="">Account ID</label>
+              <div className="underline"></div>
+              <label>Account ID</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="text"
                 required
@@ -540,72 +540,72 @@ const Table_data = () => {
                 onChange={handleChange}
                 id={isDuplicate ? "dupicate" : ""}
               />
-              <div class="underline"></div>
-              <label for="">Customer Code</label>
+              <div className="underline"></div>
+              <label>Customer Code</label>
             </div>
           </div>
 
           {/* <!-- row 2 --> */}
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 required
                 name="CompanyName"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Company Name</label>
+              <div className="underline"></div>
+              <label>Company Name</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="text"
                 required
                 name="ContactPerson"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Contact Person</label>
+              <div className="underline"></div>
+              <label>Contact Person</label>
             </div>
           </div>
 
           {/* <!-- row 3  --> */}
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 required
                 name="CompanyAddress1"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Company Address 1</label>
+              <div className="underline"></div>
+              <label>Company Address 1</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="text"
                 required
                 name="CompanyAddress2"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Company Address 2</label>
+              <div className="underline"></div>
+              <label>Company Address 2</label>
             </div>
           </div>
 
           {/* <!-- row 4  --> */}
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="email"
                 required
                 name="Email"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Email Address</label>
+              <div className="underline"></div>
+              <label>Email Address</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="tel"
                 required
@@ -613,24 +613,24 @@ const Table_data = () => {
                 pattern="[0]{1}[0-9]{9}"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Mobile Number</label>
+              <div className="underline"></div>
+              <label>Mobile Number</label>
             </div>
           </div>
 
           {/* <!-- row 5  --> */}
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <input
                 type="text"
                 name="TaxID"
                 required
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Tax ID</label>
+              <div className="underline"></div>
+              <label>Tax ID</label>
             </div>
-            <div class="input-data">
+            <div className="input-data">
               <input
                 type="number"
                 min="0"
@@ -639,15 +639,15 @@ const Table_data = () => {
                 name="BillingCharge"
                 onChange={handleChange}
               />
-              <div class="underline"></div>
-              <label for="">Billing Charge %</label>
+              <div className="underline"></div>
+              <label>Billing Charge %</label>
             </div>
           </div>
 
           {/* <!-- row 6  --> */}
 
-          <div class="form-row">
-            <div class="input-data">
+          <div className="form-row">
+            <div className="input-data">
               <SelectStatus />
             </div>
           </div>

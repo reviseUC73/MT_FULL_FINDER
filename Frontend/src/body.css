@@ -57,6 +57,7 @@ td {
   word-break: break-all;
 }
 .name_page {
+  color: rgb(96, 94, 94);
   text-align: left;
   font-size: 2.5rem;
   font-weight: bold;

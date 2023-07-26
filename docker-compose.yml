@@ -1,0 +1,86 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql
+    volumes:
+      - /Users/reviseuc73/Downloads/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Riew2545@
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-pRiew2545@"
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: always
+
+  metro-api-server:
+    # Wait for mysql_server container to be healthy before starting
+
+    image: rew1234/api-metro-server:3.0
+
+    ports:
+      - "3008:3008"
+
+    environment:
+      DB_HOST: 10.200.114.20
+      DB_PORT: 3308
+      DB_USER: root
+      DB_PASSWORD: Riew2545@
+      DB_DATABASE: mysql_metro
+      SERVER_PORT: 3008
+
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost/read || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin-container-conpose
+    depends_on:
+      - mysql
+    links:
+      - mysql:db
+    ports:
+      - "8081:80"
+    restart: always
+
+  metro_react-server:
+    image: rew1234/react-server-metro-v4:3.0
+    ports:
+      - "5001:5001"
+    environment:
+      VITE_API_PORT: 3008
+      VITE_API_HOST_IP: 10.200.114.20
+      SERVER_PORT: 5001
+      SERVER_HOST: 0.0.0.0
+
+    restart: always
+    depends_on:
+      - metro-api-server
+  # docker run -p 3000:3000 -e DB_HOST={YOUR_LOCAL_IP} -e DB_PORT=3307 -e DB_USER=root -e DB_PASSWORD=1234 -e DB_DATABASE=mysql_metro -e SERVER_PORT=3000 --name name_container metro-server-3000:1.0
+
+volumes:
+  mysql_data:
+
+

@@ -12,8 +12,8 @@ export default defineConfig(({ command, mode }) => {
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
-    plugins: [react(), basicSsl()],
-    // plugins: [react(), ],
+    // plugins: [react(), basicSsl()],
+    plugins: [react(), ],
 
     server: {
       host: env.SERVER_HOST || "0.0.0.0",

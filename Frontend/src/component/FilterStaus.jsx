@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { AllInformation } from "../services/AccountApi";
 import { Button, Collapse } from "@mui/material";
 export default function FilterStaus({ setResult }) {
+  
   const [StatusShow, setStatusShow] = useState("both");
   useEffect(() => {
     fetchData();
@@ -25,13 +26,31 @@ export default function FilterStaus({ setResult }) {
     }
   }
 
+
+
+  
   async function fetchData() {
     try {
       const data = await AllInformation();
       let result = data;
       result = filterStaus(data, StatusShow);
       setResult(result);
-      // console.log(result);
+      
+      function parseDateCreated(item) {
+        return new Date(item.DateCreated);
+      }
+      
+      // Sorting function for "DateCreated"
+      function compareDateCreated(item1, item2) {
+        const date1 = parseDateCreated(item1);
+        const date2 = parseDateCreated(item2);
+        return date1 - date2;
+      }
+      result.sort(compareDateCreated);
+     
+
+      // Sort the data by "DateCreated"
+
     } catch (error) {
       console.error(error);
     }

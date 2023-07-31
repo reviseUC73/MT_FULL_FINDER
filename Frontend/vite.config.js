@@ -13,6 +13,8 @@ export default defineConfig(({ command, mode }) => {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
     plugins: [react(), basicSsl()],
+    // plugins: [react(), ],
+
     server: {
       host: env.SERVER_HOST || "0.0.0.0",
       port: env.SERVER_PORT || 4000,

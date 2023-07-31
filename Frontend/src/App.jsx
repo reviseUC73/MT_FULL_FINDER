@@ -23,7 +23,7 @@ import Login_azure from "./page/Login_Azure_page.jsx";
 import { useEffect } from "react";
 import Page404auth from "./page/Page404auth";
 // import Login from "./page/Login_page.jsx";
-// import Register_page from "./page/Register_page";
+// import Register _page from "./page/Register_page";
 function App({ instance }) {
   // dotenv.config();
   const currentPath = window.location.pathname;

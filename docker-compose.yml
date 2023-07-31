@@ -4,8 +4,9 @@ services:
   mysql:
     image: mysql
     volumes:
-      - /Users/reviseuc73/Downloads/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - /Users/reviseuc73/Desktop/metro/MT_FULL_FINDER/db.sql:/docker-entrypoint-initdb.d/db.sql
       - mysql_data:/var/lib/mysql
+      
     ports:
       - "3308:3306"
     environment:
@@ -36,7 +37,7 @@ services:
       - "3008:3008"
 
     environment:
-      DB_HOST: 10.200.114.20
+      DB_HOST: 10.200.62.180
       DB_PORT: 3308
       DB_USER: root
       DB_PASSWORD: Riew2545@
@@ -71,7 +72,7 @@ services:
       - "5001:5001"
     environment:
       VITE_API_PORT: 3008
-      VITE_API_HOST_IP: 10.200.114.20
+      VITE_API_HOST_IP: # 
       SERVER_PORT: 5001
       SERVER_HOST: 0.0.0.0
 
@@ -84,3 +85,4 @@ volumes:
   mysql_data:
 
 
+# VITE_API_HOST_IP === DB_HOST 
